@@ -1,6 +1,11 @@
-# 대용량 첨부파일 제외 (서버 WebDAV로만 관리)
+# 1. 서버(WebDAV)로 직송할 대용량 첨부파일 폴더 (Git에서 제외)
 _resources/
 
-# 옵시디언 작업용 찌꺼기 파일 제외
+# 2. 작업 창 위치/열려있는 탭 정보 (매번 변경되므로 Git 충돌 원인 1위, 제외 추천)
 .obsidian/workspace.json
 .obsidian/workspace-mobile.json
+.obsidian/workspaces.json
+
+# 3. OS 임시 파일
+.DS_Store
+Thumbs.db
