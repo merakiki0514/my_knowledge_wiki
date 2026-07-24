@@ -1,5 +1,5 @@
 {
-  "remoteURL": "git@github.com:merakiki0514/my_knowledge_wiki.git",
+  "remoteURL": "https://github.com/merakiki0514/my_knowledge_wiki.git",
   "gitLocation": "",
   "syncinterval": 1,
   "isSyncOnLoad": true,
