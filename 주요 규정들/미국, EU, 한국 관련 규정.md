@@ -40,4 +40,11 @@
 3. NIST IR 8323(Maritime Cybersecurity Profile)
 	- 주요 성격 : NIST CSF 1.1/2.0을 해사(Maritime) 산업 특화 버전으로 패치한 프로파일
 	- 핵심 내용
-		- NIST CSF의 5대 기능(Identify, Protect, Detect, Respond, Recover)을 해사 운영 환경(Cargo Handling, Vessel Positioning, Navigation Systems, En)
+		- NIST CSF의 5대 기능(Identify, Protect, Detect, Respond, Recover)을 해사 운영 환경(Cargo Handling, Vessel Positioning, Navigation Systems, Engine Control등)의 용어와 시나리오에 맞춰 재해석
+		- 선박이 운항 중 위성통신(VSAT)이 끊기거나 고립된 상태에서의 탐지 및 대응 가이드를 표준으로 제시
+4. CISA Maritime Cyber Strategy & USCG Cyber Strategy
+	- 성격 : 미국 국토안보부 상타 CISA와 USCF가 공동으로 추진하는 해상 공급망 및 융합 제어 시스템(ICS/OT) 위협 대응 전략
+	- 핵심 내용
+		- Secure by Design : 선박 제조시 탑재되는 항해/기관 제어 소프트웨어가 설계 단계부터 보안성을 확보하도록 요구
+		- 해사 전용 위협 인텔리전스 공유 : CISA와 USCG가 수집한 해사 특화 취협을 해운업계에 실시간 전파
+## 3. 한국
