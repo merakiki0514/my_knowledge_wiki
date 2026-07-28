@@ -145,9 +145,11 @@ void got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *pa
 {
 	Struct ethheader *eth = (struct ethheader *)packet;
 	// (struct ethheader *)를 사용하여 char버퍼에 대한 포인터를 이더넷 헤더 구조에 대한 포인터로 유형 변환
-	if (ntohs(eth->ether_type) == 0x0800) { // 0x0800 is IP type / 다음 offset을 계산하는 대신, eth-> ether_type 필드 이름을 사용하여 유형 피
-		struct ipheader * ip = (struct ipheader *)
-							   (packet + sizeof(struct ethheader));
+	if (ntohs(eth->ether_type) == 0x0800) { // 0x0800 is IP type / 다음 offset을 계산하는 대신, eth-> ether_type 필드 이름을 사용하여 유형 필드를 참조 가능
+		struct ipheader *ip = (struct ipheader *)
+							   (packet + sizeof(struct ethheader)); 
+		// IP 헤더에서 일부 정보를 출력하고 싶음 => 포인터를 IP 시작 부분으로 이동 => 이동할 거리 = 이더넷 헤더의 크기(packet + sizeof(struct ethheader))로 IP 패킷의 시작 부분으로 이동
+		// 아래와 같이 필드 이름을 사용해 '->'(유형 캐스팅 수행) => 발신지/목적지 IP 주소와 프로토콜 필드에 접근할 수 있음
 		printf("From: %s\n", inet_ntoa(ip->iph_sourceip));
 		printf("To :%s\n", inet_ntoa(ip->iph_destip));
 		
