@@ -144,8 +144,28 @@ struct ipheader {
 void got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *packet)
 {
 	Struct ethheader *eth = (struct ethheader *)packet;
-	if (ntohs(eth->ether_type) == 0x0800) { // 0x0800 is IP type
-		struct ipheader * ip = (struct )
+	// (struct ethheader *)를 사용하여 char버퍼에 대한 포인터를 이더넷 헤더 구조에 대한 포인터로 유형 변환
+	if (ntohs(eth->ether_type) == 0x0800) { // 0x0800 is IP type / 다음 offset을 계산하는 대신, eth-> ether_type 필드 이름을 사용하여 유형 피
+		struct ipheader * ip = (struct ipheader *)
+							   (packet + sizeof(struct ethheader));
+		printf("From: %s\n", inet_ntoa(ip->iph_sourceip));
+		printf("To :%s\n", inet_ntoa(ip->iph_destip));
+		
+		/* determine protocol */
+		switch(ip->iph_protocol) {
+			case IPPROTO_TCP:
+				printf("Protocol:TCP\n");
+				return;
+			case IPPROTO_UDP:
+				printf("Protocol:UDP\n");
+				return;
+			case IPPROTO_ICMP:
+				printf("Protocol:ICMP\n");
+				return;
+			default:
+				printf("Protocol: others\n");
+				return;
+		}
 	}
 }
 ```
