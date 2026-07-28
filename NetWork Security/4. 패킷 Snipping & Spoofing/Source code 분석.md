@@ -53,8 +53,9 @@ int main() {
 	int sock = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
 	/* 일반 소켓과 원시 소켓의 차이
 	일반 소켓 : 커널이 패킷을 수신하면 네트워크 프로토콜을 통해 패킷을 전달하고 결국 소켓을 통해 응용 프로그램에 페이로드를 전달
-	원시 소켓 : 패킷을 프로토콜 스택에 전달하느 것외에도 커널은 리
+	원시 소켓 : 패킷을 프로토콜 스택에 전달하느 것외에도 커널은 링크 계층 헤더를 포함한 패킷 복사본을 원시 소켓에 전달 => 패킷을 가로채는 것이 아닌, 사본을 얻음
 	*/
+	// 세번째 인수 htons(ETH_P_ALL) => 프로토콜 인수 => IP 패킷만 원시 소켓으로 전달
 	
 	// Turn on the promiscuous mode
 	mr.mr_type = PACKET_MR_PROMISC;
@@ -62,10 +63,17 @@ int main() {
 	
 	// Getting captured packets
 	while (1) {
-		int data_size=recvfrom(sock, buffer, PACKET_LEN, 0, &saddr, (socklen_t*)sizeof(saddr));
+		int data_size=recvfrom(sock, buffer, PACKET_LEN, 0, &saddr, (socklen_t*)sizeof(saddr)); // recvfrom()를 통해 패킷을 기다림 -> 패킷이 도착하면 원시 소켓은 이 API를 통해 패킷의 복사본을 받음
 		if(data_size) printf("Got one packet\n");
 	}
 	close(sock);
 	return 0;
 }
+```
+## pcap API를 이용한 패킷 스니핑 - libpcap(sniff.c)(유닉스)
+```c
+#include <stdlib.h>
+#include <stdio.h>
+#include <pcap.h>
+
 ```
