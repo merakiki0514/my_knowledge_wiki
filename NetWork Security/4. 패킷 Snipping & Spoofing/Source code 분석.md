@@ -176,4 +176,19 @@ void got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *pa
 	- 이때, 일부 패킷 의 헤더에는 추가 IP 옵션 필드가 포함될 수 있으므로, IP 헤더의 크기는 고정 X
 		=> sizeof(struct ipheader) 사용 불가
 	==> IP헤더의 길이를 계산해야 됨 -> IP 헤더의 헤더 길이 필드(ip -> iph ihl)를 사용하여 IP 헤더의 실제 크기를 계산(4를 곱한 값)한 다음 그에 따라 포인터를 이동해야함
-		
+	```
+	int ip_header_len = ip->iph_ihl * 4;
+	u_char *icmp = (struct icmpheader *)
+	               (packet + sizeof(struct ethheader) + ip_header_len);
+	```
+
+## Scapy를 이용한 스니핑
+```python
+#! /usr/bin/python3
+from scapy.all import *
+
+def print_pkt(pkt) :
+	print(pkt.summary())
+
+pkt = sniff(iface='eth0', filter='icmp', prn= print_pkt)
+```
