@@ -80,6 +80,7 @@ void got_packet (u_char *args, const struct pcap_pkthdr *header, const u_char *p
 {
 	printf("Got a packet\n");
 }
+// 콜백 함수
 int main()
 {
 	pcap_t *handle;
@@ -104,9 +105,16 @@ if (pcap_setfilter(handle, &fp) ! = 0){
 
 // Capture packets
 pcap_loop(handle, -1, got_packet, NULL);
-// pcap_loop() -> 패킷이 캡처되는 pcap세션의 기본 실행 루프에 돌이
+// pcap_loop() -> 패킷이 캡처되는 pcap세션의 기본 실행 루프에 돌입
+// 두번째 매개변수 : 루프가 종료되기전에 캡처하려는 패킷 수를 지정할 수 있음 / -1 => 루프가 끝나지않음
+// 세번째 인수 -> 콜백 함수로, 패킷이 pcap에 의해 캡처될 때마다 콜백 함수 가 호출되어 캡처된 패킷에 대해 추가 분석을 수행할 수 있음
 
 pcap_close(handle); // Close handle
 return 0;
 }
+```
+-> 스니핑을 위한 C코드를 만들었으면 컴파일 필요
+```bash
+gcc -o <파일명> <컴파일될 파일명> -lpcap
+# gcc를 사용시에는 pcap를 사용하는 코드를 컴파일시 -lpcap 인수를 추가해야 함
 ```
