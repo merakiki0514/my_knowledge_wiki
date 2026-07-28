@@ -52,7 +52,8 @@ int main() {
 	// Create the raw socket
 	int sock = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
 	/* 일반 소켓과 원시 소켓의 차이
-	일반 소켓 :	
+	일반 소켓 : 커널이 패킷을 수신하면 네트워크 프로토콜을 통해 패킷을 전달하고 결국 소켓을 통해 응용 프로그램에 페이로드를 전달
+	원시 소켓 : 패킷을 프로토콜 스택에 전달하느 것외에도 커널은 리
 	*/
 	
 	// Turn on the promiscuous mode
