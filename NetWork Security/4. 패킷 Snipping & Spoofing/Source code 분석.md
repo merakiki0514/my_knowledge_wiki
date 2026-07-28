@@ -184,11 +184,13 @@ void got_packet(u_char *args, const struct pcap_pkthdr *header, const u_char *pa
 
 ## Scapy를 이용한 스니핑
 ```python
-#! /usr/bin/python3
+#!/usr/bin/python3
 from scapy.all import *
-
+# 모든 Scapy의 모듈을 가져옴 ------- 1
 def print_pkt(pkt) :
 	print(pkt.summary())
+# 캡쳐된 각 패킷에 대해 callback 함수인 print_pkt()가 호출됨 => 정의된 일부 정보를 출력
 
 pkt = sniff(iface='eth0', filter='icmp', prn= print_pkt)
+# 프로그램은 sniff()를 호출하여 eth0 인터페이스에서 패킷 캡처를 시작 / 이때, count를 이용해 패킷의 개수를 지정할 수 있음 => 지정한 패킷을 캡처후 sniff()는 해제  ---------- 2
 ```
