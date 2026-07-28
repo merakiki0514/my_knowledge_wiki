@@ -30,19 +30,12 @@
 **얻는 방법:** ETRI PDF 원문으로 접근하면 됩니다.
 **링크:** [강화학습 기반 사이버 공격 시뮬레이션 및 에뮬레이션 환경 기술 동향](https://ettrends.etri.re.kr/ettrends/218/0905218008/082-095.%20%EA%B9%80%EB%B2%94%EC%84%9D_218%ED%98%B8_%EC%B5%9C%EC%A2%85.pdf)
 
-## 5) 사이버전 모의훈련 자동화를 위한 AI 기반 ATT&CK 공격 테크닉 시뮬레이션 방법
+## 5) 사이버전 모의훈련 자동화를 위한 AI 기반 ATT&CK 공격 테크닉 시뮬레이션 방법 -> 찾아봐야됨
 
 이건 국내 학회발표 자료로 확인되는 항목입니다. 제목 자체가 **모의훈련 자동화 + AI + ATT&CK 시뮬레이션**이라서, 지금 원하시는 방향에 가장 근접합니다.  
 **등재:** 2024 추계학술발표대회 세션 목록에서 확인됩니다.
 **얻는 방법:** 해당 학회 발표집 또는 발표 논문집에서 제목 검색이 필요합니다.
-**링크:** [2024 추계학술발표대회 세션 목록](https://ksii.or.kr/society/ksii/homepage/bbs/3845/11033).[ksii](https://ksii.or.kr/society/ksii/homepage/bbs/3845/11033)
-
-## 6) AI 기반의 사이버 훈련 방법 및 장치
-
-이 자료는 논문은 아니지만, **AI로 사이버 훈련을 수행하는 방법 자체**를 특허 형태로 제시합니다. 연구 아이디어 검증용으로는 매우 유용합니다.  
-**출처:** ETRI Knowledge Sharing Platform.[ksp.etri.re](https://ksp.etri.re.kr/ksp/patent/read?id=PR20220830KR)  
-**얻는 방법:** 특허 상세 페이지에서 내용을 확인할 수 있습니다.[ksp.etri.re](https://ksp.etri.re.kr/ksp/patent/read?id=PR20220830KR)  
-**링크:** [METHOD AND APPARATUS FOR TRAINING CYBER BASED ON AI](https://ksp.etri.re.kr/ksp/patent/read?id=PR20220830KR).[ksp.etri.re](https://ksp.etri.re.kr/ksp/patent/read?id=PR20220830KR)
+**링크:** [2024 추계학술발표대회 세션 목록](https://ksii.or.kr/society/ksii/homepage/bbs/3845/11033).
 
 ## 해외 논문
 
@@ -51,23 +44,17 @@
 ## 1) Toward AI-Based Scenario Management for Cyber Range Training
 
 이 논문은 AI가 **훈련 시나리오의 설계, 실행, 분석**을 관리하는 대표적 연구입니다. attack-defence tree, formal argumentation, answer set programming, multiagent systems를 결합해 훈련 관리자를 지원합니다.  
-**등재 학회/출처:** Springer 계열 출판으로 확인되며, NTNU Open 저장소에서도 확인됩니다.[ntnuopen.ntnu](https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/2979324)  
-**얻는 방법:** 저장소 원문 또는 출판사 페이지를 통해 접근하면 됩니다.[ntnuopen.ntnu](https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/2979324)  
+**등재 학회/출처:** Springer 계열 출판으로 확인되며, NTNU Open 저장소에서도 확인됩니다.
+**얻는 방법:** 저장소 원문 또는 출판사 페이지를 통해 접근하면 됩니다.
 **링크:** [NTNU Open](https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/2979324).[ntnuopen.ntnu](https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/2979324)
 
 ## 2) AiCEF: an AI-assisted cyber exercise content generation framework using named entity recognition
 
 이 논문은 AI가 **훈련 콘텐츠를 자동 생성**하는 대표 사례입니다. 공개 기사에서 위협 정보를 추출해 시나리오를 구성하고, 전문가 평가까지 수행했습니다.  
-**등재 학회/출처:** Springer 논문이며, DOI는 `10.1007/s10207-023-00693-z`입니다.[link.springer](https://link.springer.com/article/10.1007/s10207-023-00693-z)  
-**얻는 방법:** Springer 페이지, DOI 링크, 또는 소속기관 구독으로 접근합니다.[link.springer](https://link.springer.com/article/10.1007/s10207-023-00693-z)  
+**등재 학회/출처:** Springer 논문이며, DOI는 `10.1007/s10207-023-00693-z`입니다.
+**얻는 방법:** Springer 페이지, DOI 링크, 또는 소속기관 구독으로 접근합니다.
 **링크:** [Springer](https://link.springer.com/article/10.1007/s10207-023-00693-z).[link.springer](https://link.springer.com/article/10.1007/s10207-023-00693-z)
 
-## 3) A Fuzzy Rule-based System for Automatically Generating Customized Training Scenarios in Cyber Security
-
-이 논문은 AI가 **맞춤형 훈련 시나리오를 자동 생성**하는 흐름을 보여줍니다. 퍼지 규칙 기반으로 사용자의 수준에 맞는 훈련을 구성합니다.  
-**등재/출처:** KCI 검색에서도 확인되는 논문입니다.[kci.go](https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002615762)  
-**얻는 방법:** KCI 서지에서 확인 후, 연결된 출판처나 DBpia 경로로 접근합니다.kci.go+1  
-**링크:** [KCI 검색 결과](https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002615762).[kci.go](https://www.kci.go.kr/kciportal/ci/sereArticleSearch/ciSereArtiView.kci?sereArticleSearchBean.artiId=ART002615762)
 
 ## 4) Cybersecurity Curriculum Development Using AI and Decision Support
 
@@ -75,13 +62,6 @@
 **등재/출처:** IJCTE의 오픈액세스 논문으로 확인됩니다.[ijcte](https://www.ijcte.org/index.php?m=content&c=index&a=show&catid=97&id=1471)  
 **얻는 방법:** 저널 사이트에서 무료 접근 가능성이 높습니다.[ijcte](https://www.ijcte.org/index.php?m=content&c=index&a=show&catid=97&id=1471)  
 **링크:** [IJCTE](https://www.ijcte.org/index.php?m=content&c=index&a=show&catid=97&id=1471).[ijcte](https://www.ijcte.org/index.php?m=content&c=index&a=show&catid=97&id=1471)
-
-## 5) Leveraging Generative Artificial Intelligence for Tabletop Exercise Development
-
-이 자료는 생성형 AI가 **tabletop exercise 설계**를 어떻게 돕는지 보여주는 실무형 문헌입니다. AI가 훈련 시나리오 제작 속도와 다양성을 높인다는 점에서 참고 가치가 큽니다.  
-**등재/출처:** CIS 공식 백서/리포트 성격입니다.[cisecurity](https://www.cisecurity.org/insights/white-papers/leveraging-generative-artificial-intelligence-for-tabletop-exercise-development)  
-**얻는 방법:** PDF 다운로드가 가능할 가능성이 높습니다.[cisecurity](https://www.cisecurity.org/insights/white-papers/leveraging-generative-artificial-intelligence-for-tabletop-exercise-development)  
-**링크:** [CIS white paper](https://www.cisecurity.org/insights/white-papers/leveraging-generative-artificial-intelligence-for-tabletop-exercise-development).[cisecurity](https://www.cisecurity.org/insights/white-papers/leveraging-generative-artificial-intelligence-for-tabletop-exercise-development)
 
 ## 6) AgentCyTE: Leveraging Agentic AI to Generate Cybersecurity Training Experimentation Scenarios
 
