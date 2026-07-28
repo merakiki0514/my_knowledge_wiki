@@ -90,9 +90,23 @@ int main()
 	
 // Open live pcap session on NIC with name enp0s3
 handle = pcap_open_live("enp0s3", BUFSIZ, 1, 1000, errbuf);
+// 원시 소켓을 초기화하고 enp0s3 네트워크 장치를 무차별 모드로 설정(3번째 매개변수의 값 1은 무차별모드를 킴)
+// 만약 모든 인터페이스에서 패킷을 캡처하기 위해 첫번째 인수에 "any"를 지정할 수 있지만 이 값을 사용하면 promisuous인수가 무시됨
 
 // Compile filter_exp into BPF psuedo-code
 pcap_compile(handle, &fp, filter_exp, 0, net);
-if (pcap_setfilter(handle, &fp) ! = 0)
+if (pcap_setfilter(handle, &fp) ! = 0){
+	pcap_perror(handle, "Error:");
+	exit(EXIT_FAILURE);
+}
+// pcap_setfilter() -> 소켓에 BPF필터를 설정
+// 만약 지정된 필터 표현식에 구문 오류가 있는 경우, pcap_setfilter()는 실패하고 0이 아닌 값을 반환
+
+// Capture packets
+pcap_loop(handle, -1, got_packet, NULL);
+// pcap_loop() -> 패킷이 캡처되는 pcap세션의 기본 실행 루프에 돌이
+
+pcap_close(handle); // Close handle
+return 0;
 }
 ```
