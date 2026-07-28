@@ -118,3 +118,17 @@ return 0;
 gcc -o <파일명> <컴파일될 파일명> -lpcap
 # gcc를 사용시에는 pcap를 사용하는 코드를 컴파일시 -lpcap 인수를 추가해야 함
 ```
+## 캡처된 패킷 가져오기 - sniff_improved.c
+```c
+#include <stdlib.h>
+#include <stdio.h>
+#include <pcap.h>
+#include <arpa/inet.h>
+
+/* IP Header*/
+struct ipheader {
+	unsigned char iph_ihl:4, // IP 
+				  iph_ver:4;
+	
+}
+```
