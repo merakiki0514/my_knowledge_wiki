@@ -677,6 +677,13 @@ int main()
 
 int send_packet_raw(int sock, char *ip, int n)
 {
-	struct sockaddr
+	struct sockaddr_in dest_info;
+	dest_info.sin_family = AF_INET;
+	dest_info.sin_addr = inet_addr(TARGET_IP);
+	
+	int r = sendto(sock, ip, n, 0, (struct sockaddr *)&dest_info, sizeof(dest_info));
+	
+	if (r>=0) printf("Sent a packet of size: %d\m", r);
+	else printf("Failed to send packet. Did you run it using sudo?\n");
 }
 ```
