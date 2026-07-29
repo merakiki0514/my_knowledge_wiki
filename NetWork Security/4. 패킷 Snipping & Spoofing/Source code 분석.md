@@ -199,5 +199,28 @@ pkt = sniff(iface='eth0', filter='icmp', prn= print_pkt)
 ## 소켓을 이용한 정상적인 일반 패킷 전송
 ```c
 #include <unistd.h>
-
+#include <stdio.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <netinet/ip.h>
+#include <arpa/inet.h>
+void main()
+{
+	struct sockaddr_in dest_info;
+	char *data = "UDP message\n";
+	
+	// Create a network socket
+	int sock - socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+	
+	// Provide information about destination.
+	memset((char *) &dest_info, 0, sizeof(dest_info));
+	dest_info.sin_family = AF_INET;
+	dest_info.sin_add.s_add = inet_addr("10.9.0.5");
+	dest_info.sin_port = htons(9090);
+	
+	// Send out the packet
+	sendto(sock, data, strlen(data), 0, (struct sockaddr*) &dest_info, sizeof(dest_info));
+	close(sock);
+}
 ```
+
