@@ -650,6 +650,9 @@ int main()
 	setsockopt(sock, IPPROTO_IP, IP_HDRINCL, &enable, sizeof(enable));
 	
 	// Read the UDP packet from file
-	FILE
+	FILE *f = fopen("ip.bin", "rb");
+	if (!f) {
+		perror("Can't)
+	}
 }
 ```
