@@ -354,10 +354,10 @@ int main() {
 	
 		// Provide needed information about destination
 		dest_info.sin_family = AF_INET;
-		dest_infor.sin_addr = ip->iph_destip
+		dest_info.sin_addr = ip->iph_destip
 	
 		// Send the packet out.
-		sendto(sock, ip, ntohs(ip->iph_len), 0, (struct sockaddr *) &dest_info, sizeof(dest_info));
+		sendto(sock, ip, ntohs(ip->iph_len), 0, (struct sockaddr *)&dest_info, sizeof(dest_info));
 		close(sock);
 	}
 
@@ -379,6 +379,9 @@ struct udpheader
 {
 	u_int16_t udp_sport; // source port 
 	u_int16_t udp_dport; // destination port
-	u_int16_t 
+	u_int16_t udp_ulen; // udp length
+	u_int16_t udp_sum; // udp checksum
 }
+
+
 ```
