@@ -535,6 +535,48 @@ void spoof_reply_udp(struct upheader* ip)
 	// Make a copy from the original packet
 	memset((char*)buffer, 0, 1500);
 	memcpy((char*)buffer, ip, ntohs(ip->iph_len));
-	struct
+	struct ipheader *newip = (struct ipheader *) buffer;
+	struct udpheader *newudp = (struct udpheader *) (buffer + ip_header_len);
+	char *data = (char *) newudp + sizeof(struct udpheader);
+	
+	// Construct the UDP payload, keep track of payload size 
+	const char *msg = "This is a spoofed reply\n";
+	int data_len = strlen(msg);
+	strncpy (data, msg, data_len);
+	
+	// Construct the UDP Header
+	newudp->udp_sport = udp->udp_dport;
+	newudp->udp_dport = udp->udp_sport;
+	newudp->udp_ulen = htons(sizeof(struct udpheader) + data_len);
+	newudp->udp_sum = 0;
+	
+	// Construct the IP header (no change for other fields)
+	newip->iph_sourceip = ip->iph_destip;
+	newip->iph_destip = ip->iph_sourceip;
+	newip->iph_ttl = 50;
+	newip->iph_len = htons(sizeof(struct ipheader) + sizeof(struct udpheader) + data_len)
+	
+	// Send out the spoofed Ip packet
+	send_raw_ip_packet(newip); 
+}
+
+void send_raw_ip_packet(struct ipheader* ip)
+{
+	struct sockaddr_in dest_info;
+	int enable = 1;
+	
+	// Create a raw network socket.
+	int sock = socket (AF_INET, SOCK_RAW, IPPROTO_RAW);
+	
+	// Set socket option.
+	setsockopt(sock, IPPROTO_IP, IP_HDRINCL, &enable, sizeof(enable));
+	
+	// Provide needed information about destination
+	dest_info.sin_family = AF_INET;
+	dest_info.sin_addr = ip->iph_destip
+	
+	// Send the packet out.
+	sendto(sock, ip, ntohs(ip->iph_len), 0, (struct sockaddr *)&dest_info, sizeof(dest_info));
+	close(sock);
 }
 ```
