@@ -455,3 +455,9 @@ void send_raw_ip_packet(struct ipheader* ip)
 }
 
 ```
+# 3. 스니핑 후 스푸핑 - sniff_spoof_udp.c
+- 스푸핑할 목적인 패킷을 캡처한 후 조건에 따라 스푸핑을 진행하는 코드
+-> 모든 UDP 패킷을 캡처 => 캡처된 각 UDP 패킷에 대해 목적지 포트가 9999이면 스푸핑된 응답이 전송
+```c
+
+```
