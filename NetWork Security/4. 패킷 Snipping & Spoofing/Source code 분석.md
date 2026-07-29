@@ -224,3 +224,40 @@ void main()
 }
 ```
 
+### 윈시 소켓을 이용한 스푸핑된 패킷 보내기 - send_raw_ip_packet()
+```c
+/* IP Header*/
+struct ipheader {
+	unsigned char iph_ihl:4, // IP header length
+				  iph_ver:4; // IP version
+	unsigned char iph_tos; // Type of service
+	unsigned short int iph_len; // IP Packet Length (data + header)
+	unsigned short int iph_ident; // Identification
+	unsigned short int iph_flag:3, // Fragmentation flags
+					   iph_offset:13; // Flags offset
+	unsigned char iph_ttl; // Time to Live
+	unsigned char iph_protocol; // Protocol type
+	unsigned short int iph_checksum; // IP datagram checksum
+	struct in_addr iph_sourceip; // Source IP address
+	struct in_addr iph_destip; // Destination IP address
+};
+
+void send_raw_ip_packet(struct ipheader* ip)
+{
+	struct sockaddr_in dest_info;
+	int enable = 1;
+	
+	// Create a raw network socket.
+	int sock = socket (AF_INET, SOCK_RAW, IPPROTO_RAW);
+	
+	// Set socket option.
+	setsockopt(sock, IPPROTO_IP, IP_HDRINCL, &enable, sizeof(enable));
+	
+	// Provide needed information about destination
+	dest_info.sin_family = AF_INET;
+	dest_infor.sin_addr = ip->iph_destip
+	
+	// Send the packet out.
+	sendto(sock, ip, ntohs(ip->iph_len), 0, (struc))
+}
+```
