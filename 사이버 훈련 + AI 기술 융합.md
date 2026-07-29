@@ -25,6 +25,10 @@
 **얻는 방법:** ETRI PDF 원문으로 접근하면 됩니다.
 **링크:** [강화학습 기반 사이버 공격 시뮬레이션 및 에뮬레이션 환경 기술 동향](https://ettrends.etri.re.kr/ettrends/218/0905218008/082-095.%20%EA%B9%80%EB%B2%94%EC%84%9D_218%ED%98%B8_%EC%B5%9C%EC%A2%85.pdf)
 
+## (AI 융합 사이버보안 훈련 but, 사회공학 한정) 생성형 AI 기반의 사회공학 대응 산업보안 훈련 체계 정책 제안 - 2025
+
+## (AI활용은 아니나 자동화 사이버 훈련) Automated Cyber Threat Emulation Based on ATT&CK for Cyber Security Training
+
 
 ## 해외 논문
 
