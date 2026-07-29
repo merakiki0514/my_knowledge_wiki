@@ -313,6 +313,36 @@ Spoof an ICMP echo request using an arbitrary sorce IP Address
 ****************************************************************/
 int main() {
 	char buffer[1500];
-	memset
+	memset(buffer, 0, 1500);
+	// 1500 크기의 버퍼를 만들고 0으로 채움
+	/************************************************************************
+	Fill in the ICMP echo request Header -> 유형과 검사합을 채우면됨
+	*************************************************************************/
+	struct icmpheader *icmp = (struct icmpheader *)
+							  (buffer + sizeof(struct ipheader));
+	icmp->ipcmp_type = 8; // ICMP Type: 8 is request, 0 is reply.
+	
+	// Calculate the checksum for integrity
+	icmp->icmp_chksum = 0;
+	icmp->icmp_chksum = in_cksum((unsigned short *)icmp, sizeof(struct icmpheader));
+	
+	/***********************************************************************
+	Fill in the IP header
+	***********************************************************************/
+	struct ipheader *ip = (struct ipheader *) buffer;
+	ip->iph_ver = 4;
+	ip->iph_ihl = 5;
+	ip->iph_ttl = 20;
+	ip->iph_sourceip.s_addr = inet_addr("1.2.3.4");
+	ip->iph_destip.s_addr = inet_addr("10.9.0.5");
+	ip->iph_protocol = IPPROTO_ICMP
+	ip->iph_len = htons(sizeof(struct ipheader) + sizeof(struct icmpheader));
+	
+	/*************************************************************************
+	Finally, send the spoofed packet
+	*************************************************************************/
+	send_raw_ip_packet (ip); 
+	return 0;
 }
+
 ```
