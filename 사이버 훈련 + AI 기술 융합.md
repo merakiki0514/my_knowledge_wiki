@@ -45,18 +45,24 @@
 이 논문은 AI가 **훈련 콘텐츠를 자동 생성**하는 대표 사례입니다. 공개 기사에서 위협 정보를 추출해 시나리오를 구성하고, 전문가 평가까지 수행했습니다.  
 
 
-## (AI를 활용한 훈련 시나리오 개발) AgentCyTE: Leveraging Agentic AI to Generate Cybersecurity Training Experimentation Scenarios
+## (AI를 활용한 훈련 시나리오 생성 및 Agentic LLM을 이용해 환경 구축) AgentCyTE: Leveraging Agentic AI to Generate Cybersecurity Training Experimentation Scenarios
 
 이건 최신 계열로, 에이전트형 AI가 **훈련 실험 시나리오를 생성하고 검증하는 흐름**을 보여줍니다. 
-LLM 기반 추론과 결정론적·스키마 제약형 네트워크 에뮬레이션을 결합하여 실행 가능한 위협 환경을 생성하고 개선하는 프레임워크인 **AgentCyTE**
+LLM 기반 추론과 결정론적·스키마 제약형 네트워크 에뮬레이션을 결합하여 실행 가능한 위협 환경을 생성하고 개선하는 프레임워크인 **AgentCyTE**를 통해 아래의 과정을 수행
+- 사용자 프롬프트, 외부 CTI 지식을 기반으로 시나리오 생성
 기존의 시나리오 생성으로 끝나지 않고, LLM 에이전트가 네트워크 토폴로지, 장비간 연결 관계, 서비스 및 취약점을 정의한 사양서를 합성
--> 생성된 사양서를  기반하여 스키마 파서로 검증 및 오류 사항이 발견되면 자율적으로 
+-> 생성된 사양서를  기반하여 스키마 파서로 검증 및 오류 사항이 발견되면 자율적으로 수정본 재생성
+-> 검증이 끝난 사양서를 바탕으로 물리적/가상 인프라에 네트워크 토폴로지와 취약점을 실제로 구축
+-> 이후 환경을 제공
 
 
-## 7) A Multiagent CyberBattleSim for RL Cyber Operation Agents
+## (제품? 환경을 기반으로 AI가 활용되는 것) A Multiagent CyberBattleSim for RL Cyber Operation Agents
 
 이 논문은 훈련용 시뮬레이션 환경에서 **red/blue agent를 함께 학습**시키는 연구입니다. AI가 훈련의 공격자·방어자 역할을 자동화한다는 점에서 중요합니다.  
-**등재/출처:** arXiv 공개본으로 확인됩니다.[arxiv](https://arxiv.org/abs/2304.11052)  
-**얻는 방법:** arXiv에서 무료로 다운로드 가능합니다.[arxiv](https://arxiv.org/abs/2304.11052)  
-**링크:** [arXiv](https://arxiv.org/abs/2304.11052).[arxiv](https://arxiv.org/abs/2304.11052)
+네트워크를 공격하는 레드팀과 이를 방어하는 블루팀 간의 대결 형태
+RL학습을 기반의 자율형 레드/블루 에이전트 개발
+CyberBattleSim(Microsoft) 훈련 환경을 중점
+
+
+
 
