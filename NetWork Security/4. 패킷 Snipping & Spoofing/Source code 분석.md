@@ -494,17 +494,10 @@ struct ipheader {
 };
 
 // 서로 참조하무르 미리 프로토타입 선언
+void got_packet (u_char *args, const struct pcap_pkthdr *header, const u_char *packet);
 void send_raw_ip_packet(struct ipheader *ip);
 void spoof_reply_udp(struct ipheader *ip);
 
-void got_packet (u_char *args, const struct pcap_pkthdr *header, const u_char *packet)
-{
-	printf("Got a packet\n");
-	
-	// 이더넷 헤더(14바이트) 다음이 IP 헤더
-	struct ipheader *ip = (struct ipheader *)(packet + 14);
-	spoof_reply_udp(ip);
-}
 
 int main()
 {
@@ -538,6 +531,15 @@ int main()
 pcap_loop(handle, -1, got_packet, NULL);
 pcap_close(handle); 
 return 0;
+}
+
+void got_packet (u_char *args, const struct pcap_pkthdr *header, const u_char *packet)
+{
+	printf("Got a packet\n");
+	
+	// 이더넷 헤더(14바이트) 다음이 IP 헤더
+	struct ipheader *ip = (struct ipheader *)(packet + 14);
+	spoof_reply_udp(ip);
 }
 
 void spoof_reply_udp(struct upheader* ip)
