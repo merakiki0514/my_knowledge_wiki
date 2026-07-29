@@ -617,10 +617,23 @@ from scapy.all import *
 IPpkt = IP(dst='10.9.0.5', chksum=0) 
 // IP 헤더의 검사합은 패킷이 전송될 때, 다시 계산되므로 설정하지 않거나,잘못된 값이라도 괜찮음
 UDPpkt = UDP (dport=53, chksum=0)
-// UDP 검사합ㄴ
+// UDP 검사합은 0으로 설정 안되면, Scapy가 검사합을 계산하고 이 필드를 설정
+// UDP일 경우 검사합 필드가 0이면, 누락된 검사합으로 간주하여 패킷을 수락
+// 단, TCP, ICMP 패킷의 경우, 검사합 필드가 엄격히 확인(0 or 잘못된 값이면 폐기)
 pkt = IPpkt/UDPpkt
 
 # Save the packet data to a file
 with open('ip.bin', 'wb') as f:
  f.write(bytes(pkt))
+```
+### 2. C를 이용한 패킷 수정과 전송 - send_premade_udp.c
+- 1에서 미리 만들어진 UDP 패킷을 C 프로그램에 로드
+- 이 템플릿을 이용해 각각 임의의 발신지 IP 주소와 임의의 발신지 포트 번호를 가진 많은 스푸핑 UDP 패킷 전송
+```c
+#include <unistd.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <
 ```
