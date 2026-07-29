@@ -652,7 +652,31 @@ int main()
 	// Read the UDP packet from file
 	FILE *f = fopen("ip.bin", "rb");
 	if (!f) {
-		perror("Can't3021174626101)
+		perror("Can't open 'ip.bin'");
+		exit(0);
 	}
+	unsigned char ip[MAX_FILE_SIZE];
+	int n = fread(ip, 1, MAX_FILE_SIZE, f);
+	
+	// Modify and send out UDP packets
+	arand(time(0)); // Inititalize the seed for random # generation
+	for (int i=1; i<10; i++){
+		unsigned short src_port;
+		unsigned int src_ip;
+		
+		src_ip = htonl(rand());
+		memcpy(ip+12, &src_ip, 4);  // modify source IP
+		
+		src_port = htons(rand());
+		memcpy(ip+20, &src_port, 2);  // modify source Port
+		
+		send_packet_raw(sock, ip, n); // send packet
+	}
+	close(sock);
+}
+
+int send_packet_raw(int sock, char *ip, int n)
+{
+	struct sockaddr
 }
 ```
