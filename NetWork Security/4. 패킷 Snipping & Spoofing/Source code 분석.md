@@ -514,21 +514,25 @@ int main()
 	char filter_exp[] = "udp";
 	bpf_u_int32 net = 0;  // netmask (모르면 0)
 	
-// Open live pcap session on NIC with name enp0s3
-handle = pcap_open_live("enp0s3", BUFSIZ, 1, 1000, errbuf);
+	// Open live pcap session on NIC with name enp0s3
+	handle = pcap_open_live("enp0s3", BUFSIZ, 1, 1000, errbuf);
 
-// Compile filter_exp into BPF psuedo-code
-pcap_compile(handle, &fp, filter_exp, 0, net);
-if (handle == NULL) {
-	fprintf(stderr, "Couldn't open device: %s\n", errbuf);
-	exit(EXIT_FILURE);
-}
+	// Compile filter_exp into BPF psuedo-code
+	pcap_compile(handle, &fp, filter_exp, 0, net);
+	if (handle == NULL) {
+		fprintf(stderr, "Couldn't open device: %s\n", errbuf);
+		exit(EXIT_FAILURE);
+	}
 
-if (pcap)
-if (pcap_setfilter(handle, &fp) ! = 0){
-	pcap_perror(handle, "Error:");
-	exit(EXIT_FAILURE);
-}
+	if (pcap_complie(handle, &fp, filter_exp, 0 net) == -1) {
+		pcap_perror(handle, "Error:");
+		exit(EXIT_FAILURE);
+	}
+	
+	if (pcap_setfilter(handle, &fp) ! = 0){
+		pcap_perror(handle, "Error:");
+		exit(EXIT_FAILURE);
+	}
 
 // Capture packets
 pcap_loop(handle, -1, got_packet, NULL);
@@ -540,7 +544,9 @@ void spoof_reply_udp(struct upheader* ip)
 {
 	const char buffer[1500];
 	int ip_header_len = ip->iph_ihl * 4;
+	
 	struct udpheader *udp = (struct udpheader *) ((u_char *)ip + ip_header_len);
+	
 	if (ntohs(udp->udp_dport) != 9999) {
 		// Only spoof UDP packet with destination port 9999
 		return;
@@ -549,9 +555,10 @@ void spoof_reply_udp(struct upheader* ip)
 	// Make a copy from the original packet
 	memset((char*)buffer, 0, 1500);
 	memcpy((char*)buffer, ip, ntohs(ip->iph_len));
+	
 	struct ipheader *newip = (struct ipheader *) buffer;
 	struct udpheader *newudp = (struct udpheader *) (buffer + ip_header_len);
-	char *data = (char *) newudp + sizeof(struct udpheader);
+	char *data = (char *)newudp + sizeof(struct udpheader);
 	
 	// Construct the UDP payload, keep track of payload size 
 	const char *msg = "This is a spoofed reply\n";
@@ -581,7 +588,10 @@ void send_raw_ip_packet(struct ipheader* ip)
 	
 	// Create a raw network socket.
 	int sock = socket (AF_INET, SOCK_RAW, IPPROTO_RAW);
-	
+	if (sock < 0) {
+		perror("socket() error");
+		return;
+	}
 	// Set socket option.
 	setsockopt(sock, IPPROTO_IP, IP_HDRINCL, &enable, sizeof(enable));
 	
