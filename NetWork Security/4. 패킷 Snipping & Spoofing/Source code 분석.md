@@ -1,3 +1,4 @@
+# 1. 스니핑 Source Code
 ## udp server.c (소켓을 이용한 패킷 수신)
 ```c
 #include <unistd.h>
@@ -193,4 +194,10 @@ def print_pkt(pkt) :
 
 pkt = sniff(iface='eth0', filter='icmp', prn= print_pkt)
 # 프로그램은 sniff()를 호출하여 eth0 인터페이스에서 패킷 캡처를 시작 / 이때, count를 이용해 패킷의 개수를 지정할 수 있음 => 지정한 패킷을 캡처후 sniff()는 해제  ---------- 2
+```
+# 2. 스푸핑 Source Code
+## 소켓을 이용한 정상적인 일반 패킷 전송
+```c
+#include <unistd.h>
+
 ```
