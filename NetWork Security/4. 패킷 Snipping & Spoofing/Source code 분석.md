@@ -635,5 +635,21 @@ with open('ip.bin', 'wb') as f:
 #include <stdlib.h>
 #include <string.h>
 #include <sys/socket.h>
-#include <
+#include <arpa/inet.h>
+#include <time.h>
+
+#define MAX_FILE_SIZE 2000
+#define TARGET_IP "10.9.0.5"
+int send_packet_raw (int sock, char *ip, int n);
+
+int main()
+{
+	// Create raw socket
+	int enable = 1;
+	int sock = socket (AF_INET, SOCK_RAW, IPPROTO_RAW);
+	setsockopt(sock, IPPROTO_IP, IP_HDRINCL, &enable, sizeof(enable));
+	
+	// Read the UDP packet from file
+	FILE
+}
 ```
