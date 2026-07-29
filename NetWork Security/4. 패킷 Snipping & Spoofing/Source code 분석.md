@@ -224,7 +224,7 @@ void main()
 }
 ```
 
-### 윈시 소켓을 이용한 스푸핑된 패킷 보내기 - send_raw_ip_packet()
+## 윈시 소켓을 이용한 스푸핑된 패킷 보내기 - send_raw_ip_packet()
 ```c
 /* IP Header*/
 struct ipheader {
@@ -267,7 +267,52 @@ void send_raw_ip_packet(struct ipheader* ip)
 	// 패킷을 보낼때 사용 -> sendto()
 	// 2번째 인수 : 전체 IP 패킷을 포함하는 버퍼에 대한 포인터
 	// 3번째 인수 : 패킷의 길이 필드에서 얻을 수 있는 패킷의 크기
-	// 4번째 인수 : 
+	// 4번째 인수 : 함수 동작에 영향을 미치는 플래그를 설정
+	// 다음 두 인수 : 목적지 Sockaddr_in 구조체에 대한 포인터와 크기
+	// => 원시 소켓이므로, 호출받으면 자동으로 계산되는 검사합 필드를 제외하고는 IP 패킷을 있는 그대로 보냄
 	close(sock);
+}
+```
+## 원시 ICMP 에코 요청 패킷 구성 - spoof_icmp.c
+```c
+#include <stdio.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <netinet/ip.h>
+
+/* ICMP Header */
+struct icmpheader {
+	unsigned char icmp_type; // ICMP message type
+	unsigned char icmp_code; // Error code
+	unsigned short int icmp_chksum; // Checksum for ICMP Header and data
+	unsigned short int icmp_id; // Used for identifying request
+	unsigned short int icmp_seq; // Sequence number
+};
+
+/* IP Header*/
+struct ipheader {
+	unsigned char iph_ihl:4, // IP header length
+				  iph_ver:4; // IP version
+	unsigned char iph_tos; // Type of service
+	unsigned short int iph_len; // IP Packet Length (data + header)
+	unsigned short int iph_ident; // Identification
+	unsigned short int iph_flag:3, // Fragmentation flags
+					   iph_offset:13; // Flags offset
+	unsigned char iph_ttl; // Time to Live
+	unsigned char iph_protocol; // Protocol type
+	unsigned short int iph_checksum; // IP datagram checksum
+	struct in_addr iph_sourceip; // Source IP address
+	struct in_addr iph_destip; // Destination IP address
+};
+
+unsigned short in_cksum (unsigned short *buf, int length);
+void send_raw_ip_packet (struct ipheader* ip);
+
+/***************************************************************
+Spoof an ICMP echo request using an arbitrary sorce IP Address
+****************************************************************/
+int main() {
+	char buffer[1500];
+	memset
 }
 ```
