@@ -34,12 +34,11 @@
 
 해외는 훨씬 명확합니다. **사이버훈련 + AI 융합**이 논문 제목과 초록에서 바로 드러나는 경우가 많습니다.
 
-## 1) Toward AI-Based Scenario Management for Cyber Range Training
+## (AI 기술을 통한 훈련 시나리오 생성 및 관리) Toward AI-Based Scenario Management for Cyber Range Training
 
 이 논문은 AI가 **훈련 시나리오의 설계, 실행, 분석**을 관리하는 대표적 연구입니다. attack-defence tree, formal argumentation, answer set programming, multiagent systems를 결합해 훈련 관리자를 지원합니다.  
-**등재 학회/출처:** Springer 계열 출판으로 확인되며, NTNU Open 저장소에서도 확인됩니다.
-**얻는 방법:** 저장소 원문 또는 출판사 페이지를 통해 접근하면 됩니다.
-**링크:** [NTNU Open](https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/2979324).[ntnuopen.ntnu](https://ntnuopen.ntnu.no/ntnu-xmlui/handle/11250/2979324)
+-> AI 기반 훈련시나리오 관리 아키텍쳐(AI기반 시나리오 플래너 및 추론기, AI 기반 이벤트 컨트롤러, AI 기반 인프라 오케스트레이션 컨트롤러)
+=> 사용자 중심의 설계 지원부터 AI 기반의 실시간 적응형 훈련과정까지 아우름
 
 ## 2) AiCEF: an AI-assisted cyber exercise content generation framework using named entity recognition
 
