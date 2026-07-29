@@ -456,7 +456,8 @@ void send_raw_ip_packet(struct ipheader* ip)
 }
 
 ```
-# 3. 스니핑 후 스푸핑 - sniff_spoof_udp.c
+# 3. 스니핑 후 스푸핑
+## C코드로 구현 - sniff_spoof_udp.c
 - 스푸핑할 목적인 패킷을 캡처한 후 조건에 따라 스푸핑을 진행하는 코드
 -> 모든 UDP 패킷을 캡처 => 캡처된 각 UDP 패킷에 대해 목적지 포트가 9999이면 스푸핑된 응답이 전송
 ```c
@@ -605,4 +606,21 @@ void send_raw_ip_packet(struct ipheader* ip)
 	sendto(sock, ip, ntohs(ip->iph_len), 0, (struct sockaddr *)&dest_info, sizeof(dest_info));
 	close(sock);
 }
+```
+## 하이브리드 방식 (Scapy와 C를 이용)
+### 1. Scapy를 이용한 패킷 템플릿 구성 - generate_udp.c
+- UDP 패킷을 구성하고 파일에 저장
+```c
+#!/usr/bin/python3
+from scapy.all import *
+
+IPpkt = IP(dst='10.9.0.5', chksum=0) 
+// IP 헤더의 검사합은 패킷이 전송될 때, 다시 계산되므로 설정하지 않거나,잘못된 값이라도 괜찮음
+UDPpkt = UDP (dport=53, chksum=0)
+// UDP 검사합ㄴ
+pkt = IPpkt/UDPpkt
+
+# Save the packet data to a file
+with open('ip.bin', 'wb') as f:
+ f.write(bytes(pkt))
 ```
