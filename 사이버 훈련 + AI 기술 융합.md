@@ -40,27 +40,18 @@
 -> AI 기반 훈련시나리오 관리 아키텍쳐(AI기반 시나리오 플래너 및 추론기, AI 기반 이벤트 컨트롤러, AI 기반 인프라 오케스트레이션 컨트롤러)
 => 사용자 중심의 설계 지원부터 AI 기반의 실시간 적응형 훈련과정까지 아우름
 
-## 2) AiCEF: an AI-assisted cyber exercise content generation framework using named entity recognition
+## (AI 모델을 활용해 훈련 콘텐츠 자동생성) AiCEF: an AI-assisted cyber exercise content generation framework using named entity recognition
 
 이 논문은 AI가 **훈련 콘텐츠를 자동 생성**하는 대표 사례입니다. 공개 기사에서 위협 정보를 추출해 시나리오를 구성하고, 전문가 평가까지 수행했습니다.  
-**등재 학회/출처:** Springer 논문이며, DOI는 `10.1007/s10207-023-00693-z`입니다.
-**얻는 방법:** Springer 페이지, DOI 링크, 또는 소속기관 구독으로 접근합니다.
-**링크:** [Springer](https://link.springer.com/article/10.1007/s10207-023-00693-z).[link.springer](https://link.springer.com/article/10.1007/s10207-023-00693-z)
 
 
-## 4) Cybersecurity Curriculum Development Using AI and Decision Support
+## (AI를 활용한 훈련 시나리오 개발) AgentCyTE: Leveraging Agentic AI to Generate Cybersecurity Training Experimentation Scenarios
 
-이 논문은 직접적인 레인지 논문은 아니지만, AI와 의사결정 지원을 훈련/교육과정 설계에 연결합니다. 즉, **훈련 설계와 교육 고도화** 측면에서 의미가 있습니다.  
-**등재/출처:** IJCTE의 오픈액세스 논문으로 확인됩니다.[ijcte](https://www.ijcte.org/index.php?m=content&c=index&a=show&catid=97&id=1471)  
-**얻는 방법:** 저널 사이트에서 무료 접근 가능성이 높습니다.[ijcte](https://www.ijcte.org/index.php?m=content&c=index&a=show&catid=97&id=1471)  
-**링크:** [IJCTE](https://www.ijcte.org/index.php?m=content&c=index&a=show&catid=97&id=1471).[ijcte](https://www.ijcte.org/index.php?m=content&c=index&a=show&catid=97&id=1471)
+이건 최신 계열로, 에이전트형 AI가 **훈련 실험 시나리오를 생성하고 검증하는 흐름**을 보여줍니다. 
+LLM 기반 추론과 결정론적·스키마 제약형 네트워크 에뮬레이션을 결합하여 실행 가능한 위협 환경을 생성하고 개선하는 프레임워크인 **AgentCyTE**
+기존의 시나리오 생성으로 끝나지 않고, LLM 에이전트가 네트워크 토폴로지, 장비간 연결 관계, 서비스 및 취약점을 정의한 사양서를 합성
+-> 생성된 사양서를  기반하여 스키마 파서로 검증 및 오류 사항이 발견되면 자율적으로 
 
-## 6) AgentCyTE: Leveraging Agentic AI to Generate Cybersecurity Training Experimentation Scenarios
-
-이건 최신 계열로, 에이전트형 AI가 **훈련 실험 시나리오를 생성하고 검증하는 흐름**을 보여줍니다. 아직 리뷰/소개 형태로 접근되는 경우가 많지만, 방향성은 매우 분명합니다.  
-**등재/출처:** 리뷰 형태로 공개된 자료가 확인됩니다.[themoonlight](https://www.themoonlight.io/ko/review/agentcyte-leveraging-agentic-ai-to-generate-cybersecurity-training-experimentation-scenarios)  
-**얻는 방법:** 공개 리뷰 페이지 또는 원 논문 검색이 필요합니다.[themoonlight](https://www.themoonlight.io/ko/review/agentcyte-leveraging-agentic-ai-to-generate-cybersecurity-training-experimentation-scenarios)  
-**링크:** [논문 리뷰](https://www.themoonlight.io/ko/review/agentcyte-leveraging-agentic-ai-to-generate-cybersecurity-training-experimentation-scenari...).[themoonlight](https://www.themoonlight.io/ko/review/agentcyte-leveraging-agentic-ai-to-generate-cybersecurity-training-experimentation-scenarios)
 
 ## 7) A Multiagent CyberBattleSim for RL Cyber Operation Agents
 
