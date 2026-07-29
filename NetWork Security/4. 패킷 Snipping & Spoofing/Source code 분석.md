@@ -374,7 +374,8 @@ void send_raw_ip_packet(struct ipheader* ip)
 #include <string.h>
 #include <sys/socket.h>
 #include <netinet/ip.h>
-#include<arpa/inet.h>
+#include <arpa/inet.h>
+
 /* UDP Header */
 struct udpheader
 {
@@ -459,5 +460,81 @@ void send_raw_ip_packet(struct ipheader* ip)
 - 스푸핑할 목적인 패킷을 캡처한 후 조건에 따라 스푸핑을 진행하는 코드
 -> 모든 UDP 패킷을 캡처 => 캡처된 각 UDP 패킷에 대해 목적지 포트가 9999이면 스푸핑된 응답이 전송
 ```c
+#include <stdlib.h>
+#include <stdio.h>
+#include <pcap.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <netinet/ip.h>
+#include <arpa/inet.h>
 
+/* UDP Header */
+struct udpheader
+{
+	u_int16_t udp_sport; // source port 
+	u_int16_t udp_dport; // destination port
+	u_int16_t udp_ulen; // udp length
+	u_int16_t udp_sum; // udp checksum
+}
+
+/* IP Header*/
+struct ipheader {
+	unsigned char iph_ihl:4, // IP header length
+				  iph_ver:4; // IP version
+	unsigned char iph_tos; // Type of service
+	unsigned short int iph_len; // IP Packet Length (data + header)
+	unsigned short int iph_ident; // Identification
+	unsigned short int iph_flag:3, // Fragmentation flags
+					   iph_offset:13; // Flags offset
+	unsigned char iph_ttl; // Time to Live
+	unsigned char iph_protocol; // Protocol type
+	unsigned short int iph_checksum; // IP datagram checksum
+	struct in_addr iph_sourceip; // Source IP address
+	struct in_addr iph_destip; // Destination IP address
+};
+
+void got_packet (u_char *args, const struct pcap_pkthdr *header, const u_char *packet)
+{
+	printf("Got a packet\n");
+}
+
+int main()
+{
+	pcap_t *handle;
+	char errbuf[PCAP_ERRBUF_SIZE];
+	struct bpf_program fp;
+	char filter_exp[] = "udp";
+	bpf_u_int32 net;
+	
+// Open live pcap session on NIC with name enp0s3
+handle = pcap_open_live("enp0s3", BUFSIZ, 1, 1000, errbuf);
+
+// Compile filter_exp into BPF psuedo-code
+pcap_compile(handle, &fp, filter_exp, 0, net);
+if (pcap_setfilter(handle, &fp) ! = 0){
+	pcap_perror(handle, "Error:");
+	exit(EXIT_FAILURE);
+}
+
+// Capture packets
+pcap_loop(handle, -1, got_packet, NULL);
+pcap_close(handle); 
+return 0;
+}
+
+void spoof_reply_udp(struct upheader* ip)
+{
+	const char buffer[1500];
+	int ip_header_len = ip->iph_ihl * 4;
+	struct udpheader *udp = (struct udpheader *) ((u_char *)ip + ip_header_len);
+	if (ntohs(udp->udp_dport) != 9999) {
+		// Only spoof UDP packet with destination port 9999
+		return;
+	}
+	
+	// Make a copy from the original packet
+	memset((char*)buffer, 0, 1500);
+	memcpy((char*)buffer, ip, ntohs(ip->iph_len));
+	struct
+}
 ```
