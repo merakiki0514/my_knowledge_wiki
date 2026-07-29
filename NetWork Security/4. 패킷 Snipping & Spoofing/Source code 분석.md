@@ -652,7 +652,7 @@ int main()
 	// Read the UDP packet from file
 	FILE *f = fopen("ip.bin", "rb");
 	if (!f) {
-		perror("Can't)
+		perror("Can't3021174626101)
 	}
 }
 ```
