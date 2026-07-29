@@ -249,15 +249,25 @@ void send_raw_ip_packet(struct ipheader* ip)
 	
 	// Create a raw network socket.
 	int sock = socket (AF_INET, SOCK_RAW, IPPROTO_RAW);
+	// AF_INET : IPv4용
+	// IPPROTO_RAW : IP 헤더를 제공할 것임을 의미 -> 활성화된 IP_HDRINCL을 의미
 	
 	// Set socket option.
 	setsockopt(sock, IPPROTO_IP, IP_HDRINCL, &enable, sizeof(enable));
+	// setsockopt를 이용해 IP_HDRINCL을 활성화
 	
 	// Provide needed information about destination
 	dest_info.sin_family = AF_INET;
 	dest_infor.sin_addr = ip->iph_destip
+	// 원시 소켓 프로그래밍의 경우, 제공된 IP 헤더에 목적지 정보가 이미 포함 => 계열 정보 및 목적지 IP 주소 설정을 제외하고, sockaddr_in 구조체의 모든 필드를 채울 필요없음
+	// 목적지 IP 주소를 설정 -> 목적지가 동일한 네트워크에 있는 경우, 커널이 목적지에 해당하는 올바른 MAC 주소를 얻는데 도움이 됨
 	
 	// Send the packet out.
-	sendto(sock, ip, ntohs(ip->iph_len), 0, (struc))
+	sendto(sock, ip, ntohs(ip->iph_len), 0, (struct sockaddr *) &dest_info, sizeof(dest_info));
+	// 패킷을 보낼때 사용 -> sendto()
+	// 2번째 인수 : 전체 IP 패킷을 포함하는 버퍼에 대한 포인터
+	// 3번째 인수 : 패킷의 길이 필드에서 얻을 수 있는 패킷의 크기
+	// 4번째 인수 : 
+	close(sock);
 }
 ```
