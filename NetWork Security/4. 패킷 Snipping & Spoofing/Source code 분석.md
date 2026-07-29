@@ -341,8 +341,44 @@ int main() {
 	/*************************************************************************
 	Finally, send the spoofed packet
 	*************************************************************************/
+	void send_raw_ip_packet(struct ipheader* ip)
+	{
+		struct sockaddr_in dest_info;
+		int enable = 1;
+	
+		// Create a raw network socket.
+		int sock = socket (AF_INET, SOCK_RAW, IPPROTO_RAW);
+	
+		// Set socket option.
+		setsockopt(sock, IPPROTO_IP, IP_HDRINCL, &enable, sizeof(enable));
+	
+		// Provide needed information about destination
+		dest_info.sin_family = AF_INET;
+		dest_infor.sin_addr = ip->iph_destip
+	
+		// Send the packet out.
+		sendto(sock, ip, ntohs(ip->iph_len), 0, (struct sockaddr *) &dest_info, sizeof(dest_info));
+		close(sock);
+	}
+
 	send_raw_ip_packet (ip); 
 	return 0;
 }
 
+```
+## 스푸핑 UDP 패킷 구성 - spoof_udp.c
+```c
+#include <unistd.h>
+#include <stdio.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <netinet/ip.h>
+#include<arpa/inet.h>
+/* UDP Header */
+struct udpheader
+{
+	u_int16_t udp_sport; // source port 
+	u_int16_t udp_dport; // destination port
+	u_int16_t 
+}
 ```
