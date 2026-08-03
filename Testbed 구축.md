@@ -22,6 +22,27 @@
 - Custom-built 24V Logic Interface, NMEA200/0183 디바이스, Serial-IP 변환기(converter)
 - USV/드론 장비, AIS 수신기, NAVTEX, SatCo,
 - Cyber Range(DIATEAM, VTT) + Ship Sinulator + Riskocity(위험평가) + Maritime Simulation Lab과 통합된 시스템
+## Console RM
+- Visualisation of data
+- Physical hardware visualisation of attacks
+- Pen-testing
+- Research Project development
+- Development of custom electronics and software
+- Teaching/Training
+## The Vault
+- USVs
+- Radar quipment
+- Custom Power Distribution
+- VDRs and NAVTEX
+- AIS receivers
+- Custom Cyber-Ship 24V Logic Interface and monitor
+- MFDs
+- Serial-IP Converters
+- NMEA 2000/0183
+- Data recovery from ECDIS
+- SatCom
+- AIS
+- Navtex
 # 4. 독일 - eMIR(e-Maritime Integrated Reference Platform)
 - 가상(HAGGIS) + 물리(LABSKAUS) 테스트 베드로 구성
 - S-100 해양 데이터 표준 기반의 메시지 브로커(RabbitMQ)를 통해 시뮬레이션과 실제 장비를 연동
