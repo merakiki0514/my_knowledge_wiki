@@ -10,6 +10,22 @@
 7. Econometic Model : 공격 시나리오의 경제적 영향(다운타임, 복구 시간 등 ) 평가
 8. Recommendation Engine : inflict risk + 경제모델 비실시간 평가, 포트 토폴로지/트래픽/MISP 데이터/시나리오 입력
 9. Ship Simulator : 선박 시뮬레이터(Plymouth 대학) 연동, 항해/제어 시스템 공격 시나리오 수행
+## 세부 구성
+![[Screenshot From 2026-08-03 13-48-50.png]]
+- Multi-level computer emulation and simulation environment
+	- physical equipment (router, probe, industrial PLC ..)
+- Network topologies
+	- OSI (1 to 3)
+		- the network components which they are connected to
+		- IP addresses
+		- Bandwidth
+	- components
+		- routing process ranging from no routing, direct routing up to dynamic routing with BGP, OSPF, etc..
+		- diffusion mode unicast, multicast and even broadcast data flow rate limiting
+		- open services like SSH protocol, log managemnt
+- Security technologies
+	- set of Defensice(firewalls, IPS/IDS, SIEM, ..)
+	- set of offensive(NMAP, Kali Linux..)
 # 2. NTNU
 - 해사 부분 전용 Cyber Range
 - 선박 항해/제어 시스템의 취약점 발굴과 실무자 훈련 수행
