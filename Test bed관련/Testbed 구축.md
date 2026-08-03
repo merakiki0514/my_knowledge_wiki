@@ -63,7 +63,7 @@
 - Traffic generator
 	- TRex -> Apache / software / can installed im VM
 	- BreakinPoint(IXIA) ->can be both hardware and software
-# 2. NTNU
+# 2. NTNU (Cyber-Physical Systems Security Lab)
 - 해사 부분 전용 Cyber Range
 - 선박 항해/제어 시스템의 취약점 발굴과 실무자 훈련 수행
 ### Equipment
@@ -72,7 +72,7 @@
 - Furune GP 170 (GNSS)
 - Garmin NMEA 2000 network starter kit
 - Garmin NMEA 2000 network Updater
-- Maretron IP
+- Maretron IPG100 (Internet Protocol Gateway) - Connect onboard NMEA 2000 marine network to IP device
 # 3. Ploymouth
 - 하드웨어 기반 선박 사이버보안 연구 플랫폼
 - 실제 선박 브리지에 탐재되는 장비를 재구성(물리적 트윈 형태)
