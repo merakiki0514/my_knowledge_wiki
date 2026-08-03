@@ -52,7 +52,17 @@
 ### Traffic generation
 - Cloud -> Low Orbit lon
 - Critical Infra -> Modbus / DITG / Open Flow
-- Hybrid network ->
+- Hybrid network -> ISEAGE / Traffic Collector replayer
+- IOT -> Printer / Microworks / SNMP
+- SCADA -> Traffic fuzzer / MODBUS / DNP3
+- Network -> Hydra / Emulab / tfn2k
+## Tools (Open-source)
+- Firewall :  solutions such as pfsense
+- IDS : solutions such as SURICATA
+- IPS/IDS : frameworks such as SELKS
+- Traffic generator
+	- TRex -> Apache / software / can installed im VM
+	- BreakinPoint(IXIA) ->can be both hardware and software
 # 2. NTNU
 - 해사 부분 전용 Cyber Range
 - 선박 항해/제어 시스템의 취약점 발굴과 실무자 훈련 수행
@@ -86,6 +96,14 @@
 - SatCom
 - AIS
 - Navtex
+## 기본 아키텍처
+![[Screenshot From 2026-08-03 13-35-34.png]]
+### 세부 구성
+![[Screenshot From 2026-08-03 13-38-03 1.png]]
+#### 각각 요소
+- Orchestrator
+![[Screenshot From 2026-08-03 13-38-34.png]]
+
 # 4. 독일 - eMIR(e-Maritime Integrated Reference Platform)
 - 가상(HAGGIS) + 물리(LABSKAUS) 테스트 베드로 구성
 - S-100 해양 데이터 표준 기반의 메시지 브로커(RabbitMQ)를 통해 시뮬레이션과 실제 장비를 연동
