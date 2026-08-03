@@ -26,6 +26,33 @@
 - Security technologies
 	- set of Defensice(firewalls, IPS/IDS, SIEM, ..)
 	- set of offensive(NMAP, Kali Linux..)
+	=> security technologies and tools
+- Network traffic generator
+	- inject legitimate or illegitimate traffic create the noise
+## Cyber range tools
+### Virualization/Emulation technology
+- Cloud -> LAAS Cloud infrastructure / Openstack
+- Critical infrastructure -> EMULAB / Hyper-V, NetEM
+- Hybrid network -> Virtualbox / VM ware ESXI / KVM/QWMU
+- IOT -> Openflow switches / Vmware Vsphere / Qemu system
+- SCADA -> Mininte / proxmox VE / Core emulator
+- Network -> Xen-VM / Open V-Switch / XORP Router / Open VZ
+### Simulation technology
+- Critical infra -> Qualnet / SCADASim / Digsilent Power fatory
+- SCADA -> Matlab / Analog I/O / Modbus I/O
+- Network -> ModelNet / NS2, NS3 / Network Simulator
+- Autonomous system -> Qualnet / Transas
+### Monitoring Technology
+- Cloud -> Netflow / IPFIX 
+- Critical Infra -> Zabbix / prometheus / Wireshark
+- Hybrid network -> Nagios / OSSEC / Tcpdump
+- IOT -> ADB / Opendaylight controller / Wireshark
+- SCADA -> SNORT / BRO IDS / Can analyzer
+- Network -> Testbed@twisc Monotor / Traceroute / Suricata
+### Traffic generation
+- Cloud -> Low Orbit lon
+- Critical Infra -> Modbus / DITG / Open Flow
+- Hybrid network ->
 # 2. NTNU
 - 해사 부분 전용 Cyber Range
 - 선박 항해/제어 시스템의 취약점 발굴과 실무자 훈련 수행
