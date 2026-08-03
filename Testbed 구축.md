@@ -103,7 +103,20 @@
 #### 각각 요소
 - Orchestrator
 ![[Screenshot From 2026-08-03 13-38-34.png]]
-
+- Diateam CyberRange
+![[Screenshot From 2026-08-03 13-39-03.png]]
+- VTT tools
+![[Screenshot From 2026-08-03 13-39-23.png]]
+- Recommendation engine
+![[Screenshot From 2026-08-03 13-39-50.png]]
+- Econometric Model
+![[Screenshot From 2026-08-03 13-40-09.png]]
+- SIEN/ADS
+![[Screenshot From 2026-08-03 13-40-38.png]]
+- MISP
+![[Screenshot From 2026-08-03 13-40-57.png]]
+- MaCRA
+![[Screenshot From 2026-08-03 13-41-17.png]]
 # 4. 독일 - eMIR(e-Maritime Integrated Reference Platform)
 - 가상(HAGGIS) + 물리(LABSKAUS) 테스트 베드로 구성
 - S-100 해양 데이터 표준 기반의 메시지 브로커(RabbitMQ)를 통해 시뮬레이션과 실제 장비를 연동
