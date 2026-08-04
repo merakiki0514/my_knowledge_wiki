@@ -35,6 +35,7 @@ with conn:
 ```
 # (2) C로 TCP 프로그램 작성
 - Python code로 작성될 경우, TCP 동작 방식을 이해하는데 몇 가지 기술적인 세부사항이 숨겨짐
+## TCP 클라이언트 프로그램
 ```c
 #include <unistd.h>
 #include <stdio.h>
@@ -44,7 +45,7 @@ with conn:
 #include <arpa/inet.h>
 
 int main() {
-	// 1. Create a socket
+	// 1. Create a socket / TCP는 소켓  통신 유형을 SOCK_STREAM
 	int sockfd = socket(AF_INET, SOCK_STREAM, 0);
 
 	// 2. Set the destination information
@@ -54,7 +55,23 @@ int main() {
 	dest.sin_addr.s_addr = inet_addr("10.0.2.69");
 	dest.sin_port = htons(9090);
 	
-	// 3. Connect to the server
-	connect(sockfd, (struct sockaddr *)&dest, sizeof(struct socka))
+	// 3. Connect to the server => TCP 3 way handshake protocol이 포함
+	connect(sockfd, (struct sockaddr *)&dest, sizeof(struct sockaddr_in));
+	
+	// 4. Send data to the server
+	char *buffer1 = "Hello Server!\n";
+	char *buffer2 = "Hello Agin!\n";
+	write(sockfd, buffer1, strlen(buffer1));
+	write(sockfd, buffer2, strlen(buffer2));
+	// 연결이 설정되면 연결의 양쪽 종단은 write(), send(), sendto(), sendmsg()와 같은 시스템 호출을 사용하여 서로 데이터를 보낼 수 있음
+	// 또한, read(), recv(), recvfrom(), recvmsg()를 통해 다른 쪽에서 보낸 데이터를 가져올 수도 있음
+	
+	// 5. Close the connection
+	close(sockfd);
+	return 0;
 }
+```
+## TCP 서버 프로그램
+```c
+
 ```
