@@ -73,5 +73,31 @@ int main() {
 ```
 ## TCP 서버 프로그램
 ```c
+#include <unistd.h>
+#include <stdio.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <netinet/ip.h>
+#include <arpa/inet.h>
 
+int main() {
+	int sockfd, newsockfd;
+	struct sockaddr_in my_addr, client_addr;
+	char buffer[100];
+	
+	// 1. Create a socket
+	sockfd = socket(AF_INET, SOCK_STREAM, 0);
+	
+	// 2. Bind to a port number
+	memset(&my_addr, 0, sizeof(struct sockaddr_in));
+	my_addr.sin_family = AF_INET;
+	my_addr.sin_port = hton(9090);
+	bind(sockfd, (struct sockaddr *)&my_addr, sizeof(struct sockaddr_in));
+	
+	// 3. Listen for connections
+	listen(sockfd, 5);
+	
+	// 4. Accept a connection requese
+	
+}
 ```
