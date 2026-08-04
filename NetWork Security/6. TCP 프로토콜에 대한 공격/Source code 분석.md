@@ -96,8 +96,27 @@ int main() {
 	
 	// 3. Listen for connections
 	listen(sockfd, 5);
+	// listen() 시스템 호출의 두번째 인수 : 큐의 제한(큐에 저장할 수 있는 보류 중인 연결 수를 지정)
 	
-	// 4. Accept a connection requese
+	// 4. Accept a connection request
+	int client_len = sizeof(client_addr);
+	newsockfd = accept(sockfd, (struct sockaddr *)&client_addr, &client_len);
+	// 연결은 되었지만 아직 응용 프로그램에서 사용할 수 X => 연결에 액세스하기 전에 연결을 구체적으로 수락(accept)해야 함
+	// => 큐에서 첫번째 연결 요청을 추출하고 새로운 소켓을 만들고 해당 소켓을 참조하는 새로운 파일 설명자를 반환하는 accept() 시스템 호출이 사용됨
+	// --> 연결이 수락되면 새로운 소켓이 만들어지고, 응용 프로그램이 새로운 소켓을 통해 이 연결에 액세스 가능
 	
+	// 5. Read data from the connection
+	memset(buffer, 0, sizeof(buffer));
+	int len = read(newsockfd, buffer, 100);
+	printf("Received %d bytes: %s", len, buffer);
+	
+	// 6. Close the connection
+	close(newsockfd);
+	close(sockfd);
+	
+	return 0;
 }
 ```
+## 다중 연결 수락하는 TCP 서버
+- 연결이 수락되면 새로운 프로세스를 포크(fork)하고 자식(child) 프로세스를 사용하여 연결을 처리
+	- 부모(Parent) 프로세스가 
