@@ -119,4 +119,50 @@ int main() {
 ```
 ## 다중 연결 수락하는 TCP 서버
 - 연결이 수락되면 새로운 프로세스를 포크(fork)하고 자식(child) 프로세스를 사용하여 연결을 처리
-	- 부모(Parent) 프로세스가 
+	- 부모(Parent) 프로세스가 해제되어 다른 보류 중인 연결 요청을 처리하기 위해 accept() 호출로 루프백
+```c
+#include <unistd.h>
+#include <stdio.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <netinet/ip.h>
+#include <arpa/inet.h>
+
+int main() {
+	int sockfd, newsockfd;
+	struct sockaddr_in my_addr, client_addr;
+	char buffer[100];
+	
+	// 1. Create a socket
+	sockfd = socket(AF_INET, SOCK_STREAM, 0);
+	
+	// 2. Bind to a port number
+	memset(&my_addr, 0, sizeof(struct sockaddr_in));
+	my_addr.sin_family = AF_INET;
+	my_addr.sin_port = hton(9090);
+	bind(sockfd, (struct sockaddr *)&my_addr, sizeof(struct sockaddr_in));
+	
+	// 3. Listen for connections
+	listen(sockfd, 5);
+	
+	int client_len = sizeof(client_addr);
+	while (1) {
+		newsockfd = accept(sockfd, (struct sockaddr *)&client_addr, &client_len);
+		if (fork() == 0) { // The child process
+		// fock() 시스템 호출은 호출 프로세스를 복제하여 새로운 프로세스를 생성
+		// => 성공하면 자신 프로세스의 프로세스 ID가 부모 프로세스에서 반환되고 자식 프로세스에서는 0이 반환된다.
+			close (sockfd);
+			
+			// Read data
+			memset(buffer, 0, sizeof(buffer));
+			int len = read(newsockfd, buffer, 100);
+			printf("Received %d bytes.\n%s\n", len, buffer);
+			
+			close (newsockfd);
+			return 0;
+		} else { // parent process
+			close (newsockfd)
+		}
+	}
+```
+
