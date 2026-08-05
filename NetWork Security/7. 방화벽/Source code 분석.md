@@ -37,5 +37,7 @@ unsigned int increaseTTL(void *priv, struct sk_buff *skb, const struct nf_hook_s
 	iph = ip_hdr(skb);
 	if (!iph) return NF_ACCEPT;
 	
+	iph->ttl = 99;
+	return NF_ACCEPT;
 }
 ```
