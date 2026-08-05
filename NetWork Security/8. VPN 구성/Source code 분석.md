@@ -11,4 +11,11 @@
 		- 모든 Layer 3 프로토콜을 전송할 수 있으며, 점-대-점 연결에 제한되지 않음
 		- 일반적인 용도 : 호스트 컴퓨터의 물리적 장치에 연결하는 여러 게스트 컴퓨터에 가상 네트워크 어댑터를 제공
 		=> 이더넷 프레임과 함께 동작 가능 --> 브리지 네트워크를 만드는데에도 광범위하게 사용
-## (1) TUN을 이용한 Layer 4 VPN
+## (1) TUN을 이용한 Layer 3 VPN
+### TUN 인터페이스 생성(tun.py)
+```python
+import fcntl
+import struct
+import os
+import time
+```
