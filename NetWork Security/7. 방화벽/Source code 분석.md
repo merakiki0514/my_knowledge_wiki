@@ -24,3 +24,18 @@ unsinged int blockUDP(void *priv, struct sk_buff *skb, const struct nf_hook_stat
 	return NF_ACCEPT; // 패킷이 이동을 계속하도록 함
 }
 ```
+## (2) 기타 응용
+- netfilter는 차단하는 대신 패킷을 수정할 수 있음 -> LOCAL_IN hook를 사용함으로 써
+-  (ex) 패킷이 hook를 통과하면 IP 헤더에 있는 TTL 필드가 99로 설정 
+```c
+// Hook this function to NF_INET_LOCAL_IN
+unsigned int increaseTTL(void *priv, struct sk_buff *skb, const struct nf_hook_state *state)
+{
+	struct iphdr *iph;
+	
+	if (!skb) return NF_ACCEPT;
+	iph = ip_hdr(skb);
+	if (!iph) return NF_ACCEPT;
+	
+}
+```
