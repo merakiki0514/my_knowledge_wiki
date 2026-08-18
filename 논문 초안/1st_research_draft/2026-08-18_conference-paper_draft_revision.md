@@ -57,10 +57,8 @@ IACS UR E26 is a unified requirement for the cyber resilience of ships. Unlike e
 본 논문이 제기하는 질문은 다음과 같다. **UR E26 6.4의 제외 기준을 충족하는 것으로 해당 CBS의 사이버 보안이 확보되었다고 볼 수 있는가?** 이 질문에 답하기 위하여 본 논문은 UR E26 Rev.1의 제외 기준을 발효 전 철회된 2022년판[5] 및 시스템 범주를 정의한 UR E22[2]와 대조 분석하였다. 본 논문의 기여는 다음 세 가지이다.
 
 1. UR E26 6.4의 제외 기준을 제정 과정과 대조하여, 사고 전이(propagation)에 관한 조건이 최종안에서 제외되었음을 확인하였다.
-2. 제외 판정에 차용된 UR E22의 시스템 범주가 고장(failure) 결과를 기준으로 정의되어 있음을 지적하고, 이를 보안 판정에 적용할 때 발생하는 범주 불일치를 제시하였다.
-3. 제외에 수반되는 문서 부담의 비대칭이 규칙 구조 자체에 내재함을 조문 분석으로 제시하였다.
 
-본 논문의 구성은 다음과 같다. II장에서 IACS 사이버 복원력 규칙 체계와 선행연구를 정리하고, III장에서 제외 기준을 분석한다. IV장에서 분석의 귀결로서 잔여 위협의 예시를 제시하고, V장에서 결론과 향후 연구 방향을 기술한다.
+본 논문의 구성은 다음과 같다. II장에서 선행연구를 정리하고, III장에서 제외 기준을 분석한다. IV장에서 분석의 귀결로서 잔여 위협의 예시를 제시하고, V장에서 결론을 기술한다.
 
 ---
 
@@ -72,7 +70,7 @@ IACS의 사이버 복원력 관련 통일규칙은 세 축으로 구성된다. U
 
 UR E26의 적용 대상은 물리 프로세스를 제어·감시하는 OT 시스템으로, 추진, 조타, 양묘 및 계류, 발전 및 배전, 화재탐지 및 소화, 빌지·밸러스트, 수밀 및 침수탐지, 조명, 그리고 비상정지·화물안전·가스탐지 등 안전 관련 시스템이 명시되어 있다. 여기에 법정 요건이 요구하는 항해 시스템과 내·외부 통신 시스템이 추가되며, 적용 대상 CBS로부터 다른 시스템으로 향하는 **IP 기반 통신 인터페이스** 역시 범위에 포함된다.
 
-### 2.2 선행연구와 공백 => II. 를 관련 연구
+### 2.2 선행연구와 공백 => II. 를 관련 연구로 바꿔서 
 
 선박 사이버보안에 대한 위협 분석 연구는 꾸준히 축적되어 왔다. 조용현과 차영균[3]은 선박 시스템에 접근하는 이해관계자를 고려한 데이터 흐름도를 수립하고 STRIDE와 Attack Tree를 적용하여 206건의 위협을 식별하였다. 이후 동 연구진의 일부가 참여한 연구에서는 MITRE ATT&CK 프레임워크를 선박 장비에 적용하여 공격 모델을 제시하였다[7].
 
@@ -102,13 +100,13 @@ UR E26 6.1은 적용 대상 CBS를 요구사항 적용에서 제외하는 경우
 
 ※ 필수 기준은 "The following criteria **shall be met** to exclude a system from the scope of applicability of this UR", 추가 기준은 "The following additional criteria **should be considered** for the evaluation of risk level acceptability"에 해당한다.
 
-이 기준에는 두 가지 재량 요소가 있다. 첫째, 6.4는 추가 기준을 완전히 충족하지 못하는 CBS라 하더라도 "provided with a rational explanation together with evidence and is found satisfactory by the Classification Society"인 경우 제외를 수용할 수 있도록 규정한다. 둘째, 필수 기준에 사용된 "accessible", "logically disabled", "physical access is controlled", "minimized" 등의 표현에 대하여 판정 기준이나 검증 방법이 규칙에 제시되어 있지 않다. 위험평가의 방법론 역시 지정되어 있지 않으며, UR E22 4.3.4가 ISO/IEC 31010을 참고할 수 있다고 언급하는 수준에 그친다.
+이 기준에는 두 가지 재량 요소가 있다. 첫째, 6.4는 추가 기준을 완전히 충족하지 못하는 CBS라 하더라도 "provided with a rational explanation together with evidence and is found satisfactory by the Classification Society"인 경우 제외를 수용할 수 있도록 규정한다. 둘째, 필수 기준에 사용된 "accessible", "logically disabled", "physical access is controlled", "minimized" 등의 표현에 대하여 판정 기준이나 검증 방법이 규칙에 제시되어 있지 않다. 위험평가의 방법론 역시 지정되어 있지 않았다.
 
 ### 3.2 제외의 실질적 효과
 
 제외가 승인된 CBS에는 UR E26 4장의 요구사항이 적용되지 않는다. 4장은 선박 자산 목록(4.1.1), 보안 구역 및 네트워크 분할(4.2.1), 네트워크 보호 대책(4.2.2), 악성코드 대응(4.2.3), 접근 통제(4.2.4), 무선 통신(4.2.5), 원격 접속 통제(4.2.6), 이동식 장치 사용(4.2.7), 네트워크 운영 감시(4.3.1), 검증 및 진단 기능(4.3.2), 사고 대응 계획(4.4.1), 국부·수동 운전(4.4.2), 네트워크 격리(4.4.3)로 구성된다.
 
-여기서 주목할 점은 제외의 효과가 방어 수단의 면제에 그치지 않는다는 것이다. 제외된 CBS는 4.1.1의 자산 목록에서 빠지므로 **선박의 자산 문서에 그 존재가 기재되지 않고**, 4.3.1의 네트워크 운영 감시 대상에서 빠지므로 **침해가 발생하여도 이를 탐지할 수단이 확보되지 않으며**, 4.4.1의 사고 대응 계획에서 빠지므로 **사고 발생 시 처리 절차가 마련되지 않는다.** 즉 제외는 식별·보호·탐지·대응의 전 단계에 걸친 소거로 작용한다.
+여기서 주목할 점은, 4.3.1의 네트워크 운영 감시 대상에서 빠지므로 **침해가 발생하여도 이를 탐지할 수단이 확보되지 않으며**, 4.4.1의 사고 대응 계획에서 빠지므로 **사고 발생 시 처리 절차가 마련되지 않는다.** 즉 제외는 식별·보호·탐지·대응의 전 단계에 걸친 소거로 작용한다.
 
 ### 3.3 전이 검증 조건의 부재
 
@@ -134,43 +132,8 @@ UR E26의 2022년판[5]은 6.4의 기준을 a)부터 l)까지 12개 항목으로
 
 둘째, **전이와 관련된 두 조건이 최종안에 반영되지 않았다.** 하나는 c) 항목으로, 제외 대상 CBS가 다른 시스템으로부터 사고의 영향을 받거나("cannot be affected by cyber incidents vectored by other CBSs or network devices") 다른 시스템으로 영향을 전파하지("nor it can propagate the effect of a cyber incident to other CBSs or network devices") 않을 것을 요구한 유일한 조항이었다. 다른 하나는 f) 항목의 앞 문장으로, CBS와 다른 CBS 사이의 연결이 "duly investigated, understood and documented"될 것을 요구하였다. Rev.1의 C-a는 f)의 뒷 문장인 IP 연결 부재만을 승계하였다. 즉 **전이의 결과를 판정하는 조건과 그 판정의 전제가 되는 연결 관계 파악 요구가 함께 사라졌다.**
 
-셋째, d)의 승격에는 범위 축소가 수반되었다. 2022년판은 제외 대상이 "essential services 또는 multiple ship services"를 담당하지 않을 것을 요구하였으나, Rev.1의 C-d는 "multiple ship functions을 담당하는 통합제어시스템"이 아닐 것만을 요구한다. 필수 서비스를 담당하는 단일기능 CBS는 더 이상 이 항목에 걸리지 않으며, 이를 보완할 수 있는 A-a는 "should"에 해당하여 충족이 강제되지 않는다.
-
-동일한 대조에서 두 가지 변경이 추가로 확인된다. 하나는 6.4의 수용 문턱에 사용된 표현으로, 2022년판이 "only if **evidence** is given that the operation of the CBS has no impact on the safety of operations regarding cyber risk"로 규정한 것이 Rev.1에서 "only if **assurance** is given ..."으로 변경되었다. 다만 Rev.1의 6.1과 6.2는 여전히 "evidence"를 사용하고 있어, 동일한 장 안에서 입증 수준을 지시하는 표현이 일치하지 않는다. 다른 하나는 2022년판이 6.1과 6.3 및 부속서에 걸쳐 요구하던 "A concise list of excluded applications of relevant requirements is to be generated and maintained with the CBS documents **onboard the ship**"이 Rev.1에는 나타나지 않는다는 점이다. 위험평가 문서 자체는 Rev.1에서도 제출 및 유지 대상이므로 제외에 관한 기록이 전혀 남지 않는 것은 아니나, 제외된 항목만을 추린 별도 목록을 선내에 비치하도록 하는 요구는 사라졌다.
-
 다만 2022년판은 2024년 1월 1일 발효 이전에 철회되었으므로, 위 변경은 시행 중인 요구사항이 완화된 것이 아니라 **제정 과정에서 최종안에 반영되지 않은 것**으로 이해하여야 한다. IACS는 각 항목의 변경 사유를 공개한 바 없으므로, 본 논문은 변경의 의도를 추정하지 않으며 그 결과로 남은 조문의 상태만을 분석 대상으로 한다.
-
-### 3.4 시스템 범주 차용의 문제
-
-추가 기준 A-a는 제외 대상 CBS가 Category III 선박 기능을 담당하지 않을 것을 요구한다. 이 범주는 UR E22[2]에 정의되어 있다.
-
-**표 3. UR E22 Table 3의 시스템 범주 (원문)**
-
-| Category | Failure effects | Typical System functionality |
-|---|---|---|
-| I | Those systems, failure of which **will not** lead to dangerous situations for human safety, safety of the vessel and/or threat to the environment | Monitoring, informational and administrative functions |
-| II | Those systems, failure of which could **eventually** lead to dangerous situations ... | Vessel alarm, monitoring and control functions which are necessary to maintain the vessel in its normal operational and habitable conditions |
-| III | Those systems, failure of which could **immediately** lead to dangerous or catastrophic situations ... | Control functions for maintaining the vessel's propulsion and steering; Vessel safety functions |
-
-동 규칙 3.3은 범주별 예시를 제시하고 있으며, Category I의 예시로 "Fuel monitoring system, maintenance support system, diagnostics and troubleshooting system, **closed circuit television**, cabin security, entertainment system, fish detection system"이, Category III의 예시로 "Propulsion control system, steering gear control system, electric power system (including power management system), dynamic positioning system"이 열거되어 있다.
-
-주목할 점은 이 범주의 정의 근거이다. UR E22 3.1은 범주 구분이 "the potential severity of the consequences **if the system serving the function fails**"에 기초한다고 규정하며, 4.3.3은 범주 결정이 "based on the **failure effects** of the system"으로 이루어져야 한다고 규정한다. 즉 이 범주는 우발적 고장의 안전 결과를 재는 척도이며, 의도를 가진 공격자를 상정하지 않는다.
-
-고장과 공격은 성질이 다르다. 고장은 무작위로 발생하고 그 영향은 해당 시스템의 기능적 중요도에 비례하는 경향이 있으나, 공격은 목표를 가지고 수행되며 공격자는 최종 목표가 아닌 시스템을 경유 지점으로 선택할 수 있다. 안전공학의 관점에서 저심각도로 분류되는 자산이 보안의 관점에서 저가치인 것은 아니다.
-
-이 문제는 UR E22 자체에서도 부분적으로 인식되고 있다. 동 규칙 3.2는 Category I 시스템이 통상 선급의 검증 대상이 아니라고 하면서도, 해당 시스템에 관한 정보가 "to determine the correct category or **ensure that they do not influence the operation of systems in category II and category III**"를 위하여 요구될 수 있다고 규정한다. 즉 저범주 시스템이 고범주 시스템에 영향을 미칠 가능성 자체는 규칙이 인지하고 있으나, 이를 검증하는 절차는 제시되어 있지 않다. 그 절차를 담당할 수 있었던 조항이 3.3에서 확인한 2022년판 c) 항목이다.
-
-### 3.5 제외 유인의 구조적 비대칭
-
-제외 여부는 해당 CBS에 적용되는 요구사항의 범위뿐 아니라, 이해관계자가 이행하여야 할 문서화 부담의 크기를 결정한다.
-
-UR E26의 부속서 I은 이해관계자별·단계별로 제출(Submit), 유지(Maintain), 실증(Demonstrate)하여야 하는 문서를 정리하고 있다. 제외되지 않은 CBS는 보안 구역 및 도관 도면, 사이버 보안 설계 기술서, 선박 자산 목록, 사이버 복원력 시험 절차서 등의 문서 체계에 포함된다. 반면 제외를 위하여 요구되는 것은 5.1.4에 규정된 제외 위험평가 문서이다.
-
-주목할 점은 두 문서군이 검사 단계에서 받는 취급이 다르다는 것이다. 부속서 I에서 사이버 복원력 시험 절차서(5.2.1)는 시운전 단계와 특별검사에서 실증(Demonstrate) 대상으로, 사이버 보안 및 복원력 프로그램(5.3.1)은 최초 연차검사에서 제출, 이후 연차검사에서 실증 대상으로 지정되어 있다. 이에 비해 제외 위험평가 문서(5.1.4)는 설계 단계의 제출과 이후 단계의 유지만이 지정되어 있으며, **최초 연차검사·연차검사·특별검사의 어느 열에도 요구가 표시되어 있지 않다.** 즉 제외 판정의 근거 문서는 제출된 후 갱신될 뿐, 검사 단계에서 그 타당성이 실증되는 절차를 갖지 않는다.
-
-따라서 제외에 수반되는 이행 부담과 제외되지 않는 경우의 이행 부담 사이에는 비대칭이 존재하며, 이 비대칭은 특정 이해관계자의 태도가 아니라 **규칙의 문서 요구 구조 자체에서 발생한다.** 3.1에서 확인한 판정 기준의 불확정성이 이 구조와 결합할 경우, 제외를 시도할 유인과 그 시도가 수용될 여지가 동시에 증가한다.
-
-### 3.6 논의의 범위
+### 3.4 논의의 범위 => 필요없으면 삭제
 
 한편 6.4의 명시적 제외와 별개로, UR E26의 적용 범위가 물리 프로세스를 제어·감시하는 OT 시스템을 중심으로 정의됨에 따라 통상 IT로 분류되는 구성요소가 판단에서 벗어나는 경로가 존재한다. 이는 개별 CBS를 요구사항 적용에서 배제하는 6.4와 층위를 달리하는 문제이므로 본 논문에서는 다루지 않으며, 별고에서 논한다.
 
@@ -188,9 +151,11 @@ UR E26의 부속서 I은 이해관계자별·단계별로 제출(Submit), 유지
 
 시리얼 통신이 안전하다는 인식은 이 분야에 국한된 것이 아니며, 이미 실험적으로 반박된 바 있다. 장지웅과 김휘강[13]은 전력 제어시스템에서 사용되는 시리얼 기반 DNP3.0 통신이 아날로그 구간에서의 공격 불가, **"시리얼 방식의 내재적 보안성"**, Master만이 통신을 개시하는 프로토콜 특성을 이유로 안전하다고 알려져 왔음을 지적하고, 상용 시뮬레이터로 구성한 환경에서 **시리얼 구간을 탭핑(tapping)하여 기밀성·무결성·가용성 세 측면 모두에서 취약점을 확인**하였다. 구체적으로 암호화 부재로 인해 별도의 복호화 없이 패킷 내용이 노출되었고, 명령과 응답의 변조 및 Slave 스푸핑이 가능하였으며, 유효성 검사가 없는 패킷 주입으로 버퍼 오버플로가 발생하였다.
 
-주목할 점은 이 취약점이 기술적으로 해소 불가능한 것이 아니라는 데 있다. 장지웅과 김휘강[13]은 같은 연구에서 시리얼 구간에도 적절한 인증 및 암호화를 도입하여야 함을 결론으로 제시하였다. 그럼에도 동 연구는 DNP 인증·암호화에 관한 논의가 7~8년간 진행되었음에도 실제 전력계통망에 도입한 사례가 확인되지 않는다고 보고하면서, 그 이유로 전체 시스템 재설계의 부담과 실시간 제어주기 내 처리라는 운영상 제약을 들었다. 문제는 수단의 부재가 아니라 도입 유인의 부재이며, 이는 3.5에서 확인한 구조와 같은 성격이다.
-
 선박 환경에서도 시리얼 구간은 IP 영역과 완전히 분리되어 있지 않다. 최근 보고[14]는 시리얼-IP 변환장치에 대한 분석에서 신규 취약점 20건을 식별하고, 변환장치가 침해될 경우 시리얼 통신이 양방향으로 변조될 수 있음을 실험으로 제시하였으며, 그 배경으로 시리얼 프로토콜이 인증이나 암호화를 갖추지 않은 경우가 많다는 점을 지적한다. 동 보고는 이러한 변환장치의 적용 사례로 추진 및 조타 계통과 전자해도표시정보시스템(ECDIS)을 포함한 선박 시스템을 명시하고 있다.
+
+또한 선박은 알람을 감시하기 위해 AMS(Serial 통신을 통해 연결된 System으로부터 알람을 받아 모으는 장치)가 탑재되어 있으며, 이는 시리얼 구간에서 스푸핑이 발생할 수 있으며, ICMS로 발전될 시 변환 장치를 통해 오정보를 통해 연결된 핵심 시스템이 영향(오작동)을 받을 수 있다
+-> 추가 했으면 좋겠다 생각한 내용
+=> 위을 내용을 그림(간단한 토폴로지로 표현하면 좋을 듯, 필요한 조합을 말하면 거기에 맞춰 그려보겠음)
 
 따라서 IP 연결이 없다는 사실만으로 해당 CBS가 외부 조작으로부터 분리되어 있다고 보기는 어렵다.
 
