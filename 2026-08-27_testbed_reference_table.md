@@ -1,0 +1,83 @@
+# 2026-08-27 — 테스트베드 전체 구성 참조표
+
+현재 `docker-compose.yml`에 구축된 모든 컨테이너를 Zone/시스템/프로토콜/포트/네트워크주소(CIDR)/
+통신흐름 기준으로 한눈에 볼 수 있게 정리한 표. 코드가 바뀌면 이 표도 같이 갱신한다(root
+`CLAUDE.md` 원칙: 코드와 문서가 어긋난 상태로 두지 않는다). 실제 구현 근거는
+`03.scenarios/baseline_segmentation.md`, 좌표/스타일 근거는 `08.docker_testbed/CLAUDE.md`
+참조.
+
+## Firewall (라우팅 노드)
+
+| 이름 | 역할 | 네트워크 주소(CIDR) |
+|---|---|---|
+| firewall_1 (1st F/W) | 업링크↔IT망 경계, backbone 경유 정책 판단 | uplink_net `172.30.1.1/24`, it_net `172.30.2.1/24`, backbone_net `172.30.3.1/24`, mgmt_net `172.30.90.1/24` |
+| firewall_2 (OT F/W) | OT 전 Zone(Control/Navigation/Safety/Cargo/Smartship) 경계 | backbone_net `172.30.3.2/24`, control_net `172.30.11.1/24`, navigation_net `172.30.12.1/24`, safety_net `172.30.13.1/24`, cargo_net `172.30.14.1/24`, smartship_net `172.30.15.1/24`, control_me_link `172.30.17.2/29`, control_sg_link `172.30.17.10/29`, mgmt_net `172.30.90.2/24` |
+
+## Uplink Zone / IT망 Zone
+
+| Zone | 시스템 | 프로토콜 | 포트 | IP(CIDR) | 통신 흐름 |
+|---|---|---|---|---|---|
+| Uplink | vsat_starlink | TCP | 443 (수신) | `172.30.1.10/24` | ICMS·Smartship·VDR로부터 수신(Conduit③④⑦) |
+| Uplink | vendor_remote | TCP | 5011 (발신 대상) | `172.30.1.11/24` | → ICMS:5011, `VENDOR_MAINTENANCE_SESSION` (Conduit⑥, 유일한 외부→OT 인바운드) |
+| IT망 | it_network | TCP | 443 (발신 대상) | `172.30.2.10/24` | → vsat_starlink:443, `UPLINK_CHECK` |
+
+## Control Zone (2026-08-27부터 ICMS 중심 스타 구조 — 상세는 `2026-08-27_control_zone_star_topology.md`)
+
+| Zone | 시스템 | 프로토콜 | 포트 | IP(CIDR) | 통신 흐름 |
+|---|---|---|---|---|---|
+| Control | ICMS | TCP | 5010(수신), 5011(수신), 5012(수신) | control_net `172.30.11.10/24`; control_icms_me_net `172.30.16.2/29`; control_icms_ge_net `172.30.16.10/29`; control_icms_sg_net `172.30.16.18/29`; control_icms_bwts_net `172.30.16.26/29` | ← FDS:5010(①), ← Vendor Remote:5011(⑥), ← M/E·G/E·Steering Gear·BWTS:5012(알람) · → vsat:443(③), → Smartship:8082(⑧), → M/E:5003·G/E:5000·Steering Gear:5004·BWTS:5000(제어신호) |
+| Control | Main Engine (M/E) | TCP | 5001(수신), 5003(수신) | control_me_link `172.30.17.3/29`; control_icms_me_net `172.30.16.3/29` | ← BCS:5001(②, `ENGINE_ORDER`), ← ICMS:5003(제어신호) · → ICMS:5012(`ME_ALARM`) |
+| Control | Generator Engine (G/E) | TCP | 5000(수신) | control_icms_ge_net `172.30.16.11/29` | ← ICMS:5000(제어신호) · → ICMS:5012(`GE_ALARM`) · **ICMS 외 누구와도 연결 안 됨(toolbox 포함)** |
+| Control | Steering Gear | TCP | 5002(수신), 5004(수신) | control_sg_link `172.30.17.11/29`; control_icms_sg_net `172.30.16.19/29` | ← Autopilot:5002(⑤, `STEERING_COMMAND`), ← ICMS:5004(제어신호) · → ICMS:5012(`SG_ALARM`) |
+| Control | BWTS | TCP | 5000(수신) | control_icms_bwts_net `172.30.16.27/29` | ← ICMS:5000(제어신호) · → ICMS:5012(`BWTS_ALARM`) · **ICMS 외 누구와도 연결 안 됨(toolbox 포함)** |
+
+## Navigation Zone (IBS) — 전부 `172.30.12.0/24` 한 네트워크
+
+| Zone | 시스템 | 프로토콜 | 포트 | IP | 통신 흐름 |
+|---|---|---|---|---|---|
+| Navigation | nav_hub | Serial→TCP 흉내(수신), UDP 브로드캐스트(송신) | tcp/10111(수신), udp/10110(송신) | `172.30.12.2` | ← GPS·Speed Log·Echo Sounder·AIS·RADAR(Serial 입력) · → udp 브로드캐스트로 ECDIS·RADAR·AIS·Autopilot·GMDSS·VDR에 재배포 |
+| Navigation | GPS | Serial 흉내 | tcp/10111(발신) | `172.30.12.13` | → nav_hub, `$GPGGA` 2초 간격 |
+| Navigation | Speed Log | Serial 흉내 | tcp/10111(발신) | `172.30.12.14` | → nav_hub, `$VDVBW` 2초 간격 |
+| Navigation | Echo Sounder | Serial 흉내 | tcp/10111(발신) | `172.30.12.15` | → nav_hub, `$SDDBT` 2초 간격 |
+| Navigation | ECDIS | IP(UDP 수신 전용) | udp/10110(수신) | `172.30.12.10` | ← nav_hub 브로드캐스트만 수신(단방향) |
+| Navigation | RADAR | IP(UDP 수신 + Serial 흉내 발신) | udp/10110(수신), tcp/10111(발신) | `172.30.12.11` | ← nav_hub 수신 **+** → nav_hub `$RATTM` 발신(양방향, 트랜시버) |
+| Navigation | AIS | IP(UDP 수신 + Serial 흉내 발신) | udp/10110(수신), tcp/10111(발신) | `172.30.12.12` | ← nav_hub 수신 **+** → nav_hub `!AIVDM` 발신(양방향, 트랜시버) |
+| Navigation | BCS | TCP | 5001(발신 대상: M/E) | `172.30.12.20` | → Main Engine(172.30.17.3):5001(②, `ENGINE_ORDER`) |
+| Navigation | Autopilot | IP(UDP 수신) + TCP(발신) | udp/10110(수신), tcp/5002(발신 대상) | `172.30.12.21` | ← nav_hub 수신 · → Steering Gear(172.30.17.11):5002(⑤, `STEERING_COMMAND`) |
+| Navigation | GMDSS | IP(UDP 수신) | udp/10110(수신) | `172.30.12.22` | ← nav_hub 수신만(RF 자체는 시뮬레이션 범위 밖) |
+| Navigation | VDR | IP(UDP 수신) + TCP(발신) | udp/10110(수신), tcp/443·8081(발신 대상) | `172.30.12.23` | ← nav_hub 수신 · → vsat:443(⑦, `VDR_DATA_EXTRACTION`, OT F/W·1st F/W 경유) · → Smartship:8081(⑨, `VDR_NAV_DATA`, OT F/W 경유) |
+
+## Safety Zone / Cargo Zone / Smartship
+
+| Zone | 시스템 | 프로토콜 | 포트 | IP(CIDR) | 통신 흐름 |
+|---|---|---|---|---|---|
+| Safety | FDS | TCP | 5010(발신 대상) | `172.30.13.10/24` | → ICMS:5010(①, `FIRE_ALARM_STATUS`) |
+| Cargo | Loading Computer | TCP | 5000(수신, idle) | `172.30.14.10/24` | 없음 — Conduit 미배정 |
+| Cargo | RCMS | TCP | 5000(수신, idle) | `172.30.14.11/24` | 없음 — Conduit 미배정 |
+| Smartship | Smartship solution | TCP | 8080(idle), 8081(수신), 8082(수신) | `172.30.15.10/24` | ← VDR:8081(⑨), ← ICMS:8082(⑧) · → vsat:443(④, `SMARTSHIP_TELEMETRY`) |
+
+## 검증 접점
+
+| Zone | 시스템 | 역할 | IP(CIDR) | 도달 범위 |
+|---|---|---|---|---|
+| mgmt | toolbox | nmap/nc 수동 진단(Model 02 Tool Interface 자리) | `172.30.90.10/24` | 두 firewall 경유로 대부분 도달, **단 Control Zone의 G/E·BWTS는 도달 불가(ICMS 스타 구조로 의도된 격리)** |
+
+## Conduit 요약 (①~⑨, 전부 사용자 확인 사실)
+
+| # | From | To | 포트 | 매체 | 방향 |
+|---|---|---|---|---|---|
+| ① | FDS | ICMS | 5010 | Serial(점선) | OT 내부 |
+| ② | BCS | Main Engine | 5001 | Serial(점선) | OT 내부 |
+| ③ | ICMS | 외부(vsat) | 443 | IP(실선) | OT → 외부 |
+| ④ | Smartship | 외부(vsat) | 443 | IP(실선), OT F/W·1st F/W 경유 | OT → 외부 |
+| ⑤ | Autopilot | Steering Gear | 5002 | Serial(점선) | OT 내부 |
+| ⑥ | Vendor Remote | ICMS | 5011 | IP(실선) | **외부 → OT(유일한 인바운드)** |
+| ⑦ | VDR | 외부(vsat) | 443 | IP(실선), OT F/W·1st F/W 경유 | OT → 외부 |
+| ⑧ | ICMS | Smartship | 8082 | IP(실선) | OT 내부(집계 대표 구현) |
+| ⑨ | VDR | Smartship | 8081 | IP(실선), OT F/W 경유 | OT 내부 |
+
+## Related
+
+- `03.scenarios/baseline_segmentation.md` (Conduit 근거, Zone/firewall 구성표)
+- `2026-08-27_control_zone_star_topology.md`, `2026-08-27_conduit_7_8_9_implementation.md`
+- `2026-08-27_container_topology_v3.drawio` (같은 날 이 표와 함께 갱신한 구조도)
